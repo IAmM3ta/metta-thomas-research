@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects • Metta Thomas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Space Grotesk', 'Inter', system_ui, sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+        }
+
+        .project-card {
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .nav-link {
+            transition: color 0.2s ease;
+        }
+        .nav-link:hover {
+            color: white;
+        }
+
+        .section-header {
+            font-size: 1.85rem;
+            line-height: 1.1;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- Navbar -->
+    <nav class="border-b border-white/10 bg-zinc-950/95 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-white rounded-2xl flex items-center justify-center">
+                        <span class="text-zinc-950 font-bold text-2xl tracking-[-2px]">MT</span>
+                    </div>
+                    <a href="index.html" class="font-semibold text-2xl tracking-tighter hover:text-white">Metta Thomas</a>
+                </div>
+                
+                <div class="flex items-center gap-x-9 text-sm font-medium">
+                    <a href="index.html#research" class="nav-link">Research</a>
+                    <a href="projects.html" class="nav-link text-white">Projects</a>
+                    <a href="index.html#writings" class="nav-link">Writings</a>
+                    <a href="index.html#citations" class="nav-link">Citations</a>
+                    
+                    <a href="https://github.com/IAmM3ta/metta-thomas-private-archive" 
+                       class="flex items-center gap-x-2 px-5 h-10 text-sm border border-white/15 hover:bg-white/5 rounded-2xl transition-all">
+                        <i class="fa-solid fa-lock text-xs"></i>
+                        <span class="font-medium ml-1.5">Archive</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="max-w-screen-2xl mx-auto px-8 pt-14 pb-10">
+        <div class="max-w-2xl">
+            <div class="text-xs font-mono tracking-[2.5px] text-blue-400 mb-3">INTERACTIVE WORK</div>
+            <h1 class="text-5xl font-semibold tracking-tighter heading-font">Projects</h1>
+            <p class="mt-4 text-lg text-zinc-400 max-w-md">
+                A collection of interactive tools, visualizations, and experimental interfaces.
+            </p>
+        </div>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="max-w-screen-2xl mx-auto px-8 pb-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- FloatMaps Card -->
+            <div class="project-card group bg-zinc-900 border border-white/10 rounded-3xl overflow-hidden flex flex-col">
+                <div class="h-48 bg-zinc-800 flex items-center justify-center relative">
+                    <div class="text-center">
+                        <i class="fa-solid fa-map-marked text-5xl text-blue-400 mb-4"></i>
+                        <div class="text-sm text-zinc-400">Interactive Mapping Platform</div>
+                    </div>
+                    
+                    <!-- Status badge -->
+                    <div class="absolute top-4 right-4 px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-medium rounded-2xl border border-emerald-500/20">
+                        In Development
+                    </div>
+                </div>
+                
+                <div class="p-7 flex-1 flex flex-col">
+                    <div>
+                        <h3 class="font-semibold text-2xl tracking-tight">FloatMaps</h3>
+                        <p class="text-sm text-zinc-400 mt-1">PEV Rider Mapping &amp; Infrastructure Platform</p>
+                    </div>
+                    
+                    <div class="mt-auto pt-6">
+                        <div class="flex items-center justify-between">
+                            <div class="text-xs text-zinc-500">Core Project</div>
+                            <a href="#" 
+                               class="inline-flex items-center gap-x-2 text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors">
+                                Launch Demo 
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GLSL Shaders Card -->
+            <div class="project-card group bg-zinc-900 border border-white/10 rounded-3xl overflow-hidden flex flex-col">
+                <div class="h-48 bg-zinc-800 flex items-center justify-center">
+                    <i class="fa-solid fa-magic text-5xl text-violet-400"></i>
+                </div>
+                
+                <div class="p-7 flex-1 flex flex-col">
+                    <div>
+                        <h3 class="font-semibold text-2xl tracking-tight">GLSL Shader Experiments</h3>
+                        <p class="text-sm text-zinc-400 mt-1">Procedural visuals, noise fields, and real-time shader compositions</p>
+                    </div>
+                    
+                    <div class="mt-auto pt-6">
+                        <div class="flex items-center justify-between">
+                            <div class="text-xs text-zinc-500">Coming Soon</div>
+                            <span class="text-xs px-3 py-1 bg-white/5 rounded-2xl text-zinc-400">In Progress</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Physics Simulations Card -->
+            <div class="project-card group bg-zinc-900 border border-white/10 rounded-3xl overflow-hidden flex flex-col">
+                <div class="h-48 bg-zinc-800 flex items-center justify-center">
+                    <i class="fa-solid fa-atom text-5xl text-emerald-400"></i>
+                </div>
+                
+                <div class="p-7 flex-1 flex flex-col">
+                    <div>
+                        <h3 class="font-semibold text-2xl tracking-tight">Physics Simulations</h3>
+                        <p class="text-sm text-zinc-400 mt-1">Particle systems, emergent behavior, and custom physics engines</p>
+                    </div>
+                    
+                    <div class="mt-auto pt-6">
+                        <div class="flex items-center justify-between">
+                            <div class="text-xs text-zinc-500">Coming Soon</div>
+                            <span class="text-xs px-3 py-1 bg-white/5 rounded-2xl text-zinc-400">Planned</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="border-t border-white/10 py-8">
+        <div class="max-w-screen-2xl mx-auto px-8 text-sm text-zinc-500 flex justify-between">
+            <div>
+                © 2025–2026 Robert F. Thomas
+            </div>
+            <a href="index.html" class="hover:text-zinc-300">Back to Research</a>
+        </div>
+    </footer>
+</body>
+</html>
