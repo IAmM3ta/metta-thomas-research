@@ -21,13 +21,9 @@
         }
 
         .glass {
-            background: rgba(10, 10, 15, 0.6);
+            background: rgba(10, 10, 15, 0.65);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .neon-text {
-            text-shadow: 0 0 10px rgb(59 130 246 / 0.5);
         }
 
         .section-header {
@@ -39,35 +35,8 @@
 
         .futuristic-card {
             transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .futuristic-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 40%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255,255,255,0.08),
-                transparent
-            );
-            transition: 0.6s;
-        }
-        
-        .futuristic-card:hover::before {
-            left: 250%;
         }
 
-        .research-card {
-            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), 
-                       box-shadow 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        
         .research-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
@@ -80,12 +49,8 @@
             width: 100%;
             height: 100%;
             z-index: 1;
-            opacity: 0.6;
+            opacity: 0.55;
             pointer-events: none;
-        }
-
-        .glow-blue {
-            box-shadow: 0 0 15px rgb(59 130 246 / 0.3);
         }
     </style>
 </head>
@@ -120,7 +85,7 @@
         </div>
     </nav>
 
-    <!-- Hero with Three.js -->
+    <!-- Hero with Three.js Noise Particles -->
     <div class="relative h-[92vh] flex items-center border-b border-white/10 overflow-hidden">
         <canvas id="three-canvas" class="absolute inset-0"></canvas>
         
@@ -198,45 +163,41 @@
         </div>
     </div>
 
-    <!-- Writings / Blog Section -->
+    <!-- Writings -->
     <div id="writings" class="max-w-screen-2xl mx-auto px-8 py-16 border-y border-white/10 bg-zinc-900/30">
-        <div class="max-w-screen-2xl mx-auto">
-            <div class="flex items-end justify-between mb-10">
-                <div>
-                    <div class="font-mono text-xs tracking-[3px] text-blue-400 mb-3">THOUGHTS &amp; NOTES</div>
-                    <h2 class="section-header">Writings</h2>
+        <div class="flex items-end justify-between mb-10">
+            <div>
+                <div class="font-mono text-xs tracking-[3px] text-blue-400 mb-3">THOUGHTS &amp; NOTES</div>
+                <h2 class="section-header">Writings</h2>
+            </div>
+            <div class="text-sm text-zinc-400">More coming soon</div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="futuristic-card glass border border-white/10 rounded-3xl p-7 hover:border-white/20 transition-all">
+                <div class="text-xs font-mono tracking-widest text-blue-400 mb-4">FEBRUARY 2026</div>
+                <h4 class="font-semibold text-2xl leading-tight mb-4">On the Necessity of Retrocausal Coherence in Noogenesis</h4>
+                <p class="text-zinc-400 line-clamp-3">Explores the finite retrocausal coherence time window as a necessary condition for directed noogenesis under the Chrono-Teleological Bootstrap.</p>
+                <div class="mt-6 text-xs flex items-center text-zinc-500">
+                    <span>Technical Note</span>
                 </div>
-                <div class="text-sm text-zinc-400">More coming soon</div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Writing 1 -->
-                <div class="futuristic-card glass border border-white/10 rounded-3xl p-7 hover:border-white/20 transition-all">
-                    <div class="text-xs font-mono tracking-widest text-blue-400 mb-4">FEBRUARY 2026</div>
-                    <h4 class="font-semibold text-2xl leading-tight mb-4">On the Necessity of Retrocausal Coherence in Noogenesis</h4>
-                    <p class="text-zinc-400 line-clamp-3">Explores the finite retrocausal coherence time window as a necessary condition for directed noogenesis under the Chrono-Teleological Bootstrap.</p>
-                    <div class="mt-6 text-xs flex items-center text-zinc-500">
-                        <span>Technical Note</span>
-                    </div>
+            <div class="futuristic-card glass border border-white/10 rounded-3xl p-7 hover:border-white/20 transition-all">
+                <div class="text-xs font-mono tracking-widest text-violet-400 mb-4">JANUARY 2026</div>
+                <h4 class="font-semibold text-2xl leading-tight mb-4">Dissipative Adaptation as Thermodynamic Imperative</h4>
+                <p class="text-zinc-400 line-clamp-3">Argues that intelligence emerges as nature's most efficient mechanism for maximizing entropy production across spacetime.</p>
+                <div class="mt-6 text-xs flex items-center text-zinc-500">
+                    <span>Essay</span>
                 </div>
+            </div>
 
-                <!-- Writing 2 -->
-                <div class="futuristic-card glass border border-white/10 rounded-3xl p-7 hover:border-white/20 transition-all">
-                    <div class="text-xs font-mono tracking-widest text-violet-400 mb-4">JANUARY 2026</div>
-                    <h4 class="font-semibold text-2xl leading-tight mb-4">Dissipative Adaptation as Thermodynamic Imperative</h4>
-                    <p class="text-zinc-400 line-clamp-3">Argues that intelligence emerges as nature's most efficient mechanism for maximizing entropy production across spacetime.</p>
-                    <div class="mt-6 text-xs flex items-center text-zinc-500">
-                        <span>Essay</span>
-                    </div>
+            <div class="futuristic-card glass border border-white/10 rounded-3xl p-7 hover:border-white/20 transition-all flex flex-col justify-between">
+                <div>
+                    <div class="text-xs font-mono tracking-widest text-emerald-400 mb-4">COMING SOON</div>
+                    <h4 class="font-semibold text-2xl leading-tight">The Sarfatti Lattice and Torsion-Mediated Shielding</h4>
                 </div>
-
-                <div class="futuristic-card glass border border-white/10 rounded-3xl p-7 hover:border-white/20 transition-all flex flex-col justify-between">
-                    <div>
-                        <div class="text-xs font-mono tracking-widest text-emerald-400 mb-4">COMING SOON</div>
-                        <h4 class="font-semibold text-2xl leading-tight">The Sarfatti Lattice and Torsion-Mediated Shielding</h4>
-                    </div>
-                    <div class="mt-8 text-sm text-zinc-400">In preparation • Expected Q2 2026</div>
-                </div>
+                <div class="mt-8 text-sm text-zinc-400">In preparation • Expected Q2 2026</div>
             </div>
         </div>
     </div>
@@ -309,90 +270,226 @@
     </footer>
 
     <script>
-        // Three.js Particle Background
+        // Simplex Noise + FBM for organic movement
+        const simplexNoise = `
+            // 3D Simplex Noise
+            vec3 mod289(vec3 x) { return x - floor(x / 289.0) * 289.0; }
+            vec4 mod289(vec4 x) { return x - floor(x / 289.0) * 289.0; }
+            vec4 permute(vec4 x) { return mod289(((x * 34.0) + 1.0) * x); }
+            vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
+
+            float snoise(vec3 v) {
+                const vec2 C = vec2(1.0 / 6.0, 1.0 / 3.0);
+                const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
+
+                vec3 i = floor(v + dot(v, C.yyy));
+                vec3 x0 = v - i + dot(i, C.xxx);
+
+                vec3 g = step(x0.yzx, x0.xyz);
+                vec3 l = 1.0 - g;
+                vec3 i1 = min(g.xyz, l.zxy);
+                vec3 i2 = max(g.xyz, l.zxy);
+
+                vec3 x1 = x0 - i1 + C.xxx;
+                vec3 x2 = x0 - i2 + C.yyy;
+                vec3 x3 = x0 - D.yyy;
+
+                i = mod289(i);
+                vec4 p = permute(permute(permute(
+                    i.z + vec4(0.0, i1.z, i2.z, 1.0)) +
+                    i.y + vec4(0.0, i1.y, i2.y, 1.0)) +
+                    i.x + vec4(0.0, i1.x, i2.x, 1.0));
+
+                float n_ = 0.142857142857;
+                vec3 ns = n_ * D.wyz - D.xzx;
+
+                vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
+                vec4 x_ = floor(j * ns.z);
+                vec4 y_ = floor(j - 7.0 * x_);
+
+                vec4 x = x_ * ns.x + ns.y;
+                vec4 y = y_ * ns.x + ns.y;
+                vec4 h = 1.0 - abs(x) - abs(y);
+
+                vec4 b0 = vec4(x.xy, y.xy);
+                vec4 b1 = vec4(x.zw, y.zw);
+
+                vec4 s0 = floor(b0) * 2.0 + 1.0;
+                vec4 s1 = floor(b1) * 2.0 + 1.0;
+                vec4 sh = -step(h, vec4(0.0));
+
+                vec4 a0 = b0.xzyw + s0.xzyw * sh.xxyy;
+                vec4 a1 = b1.xzyw + s1.xzyw * sh.zzww;
+
+                vec3 p0 = vec3(a0.xy, h.x);
+                vec3 p1 = vec3(a0.zw, h.y);
+                vec3 p2 = vec3(a1.xy, h.z);
+                vec3 p3 = vec3(a1.zw, h.w);
+
+                vec4 norm = taylorInvSqrt(vec4(dot(p0, p0), dot(p1, p1), dot(p2, p2), dot(p3, p3)));
+                p0 *= norm.x;
+                p1 *= norm.y;
+                p2 *= norm.z;
+                p3 *= norm.w;
+
+                vec4 m = max(0.6 - vec4(dot(x0, x0), dot(x1, x1), dot(x2, x2), dot(x3, x3)), 0.0);
+                m = m * m;
+                return 42.0 * dot(m * m, vec4(dot(p0, x0), dot(p1, x1), dot(p2, x2), dot(p3, x3)));
+            }
+
+            // Fractional Brownian Motion (FBM)
+            float fbm(vec3 p) {
+                float value = 0.0;
+                float amplitude = 0.5;
+                float frequency = 1.0;
+                for (int i = 0; i < 4; i++) {
+                    value += amplitude * snoise(p * frequency);
+                    frequency *= 2.0;
+                    amplitude *= 0.5;
+                }
+                return value;
+            }
+        `;
+
         function initThreeJS() {
             const canvas = document.getElementById('three-canvas');
             if (!canvas) return;
+
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+            const particleCount = isMobile ? 280 : 850;
+            const pixelRatio = isMobile ? 1.0 : Math.min(window.devicePixelRatio, 2);
 
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
             const renderer = new THREE.WebGLRenderer({ 
                 canvas: canvas, 
                 alpha: true, 
-                antialias: true 
+                antialias: false,
+                powerPreference: "high-performance"
             });
 
+            renderer.setPixelRatio(pixelRatio);
             renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-            // Particles
-            const particlesGeometry = new THREE.BufferGeometry();
-            const particlesCount = 1200;
-            const posArray = new Float32Array(particlesCount * 3);
-            const velocityArray = new Float32Array(particlesCount * 3);
+            // Geometry
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            const velocities = new Float32Array(particleCount * 3);
+            const sizes = new Float32Array(particleCount);
 
-            for (let i = 0; i < particlesCount * 3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 18;
-                velocityArray[i] = (Math.random() - 0.5) * 0.008;
+            for (let i = 0; i < particleCount; i++) {
+                const i3 = i * 3;
+                positions[i3]     = (Math.random() - 0.5) * 16;
+                positions[i3 + 1] = (Math.random() - 0.5) * 14;
+                positions[i3 + 2] = (Math.random() - 0.5) * 10;
+
+                velocities[i3]     = (Math.random() - 0.5) * 0.004;
+                velocities[i3 + 1] = (Math.random() - 0.5) * 0.004;
+                velocities[i3 + 2] = (Math.random() - 0.5) * 0.003;
+
+                sizes[i] = Math.random() * 1.1 + 0.9;
             }
 
-            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('velocity', new THREE.BufferAttribute(velocities, 3));
+            geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
-            const particlesMaterial = new THREE.PointsMaterial({
-                size: 0.035,
-                color: 0x3b82f6,
+            // Shader Material with Noise
+            const material = new THREE.ShaderMaterial({
+                uniforms: {
+                    uTime: { value: 0 },
+                    uColor: { value: new THREE.Color(0x3b82f6) },
+                    uPixelRatio: { value: pixelRatio }
+                },
+                vertexShader: `
+                    ${simplexNoise}
+
+                    uniform float uTime;
+                    uniform float uPixelRatio;
+                    attribute vec3 velocity;
+                    attribute float size;
+
+                    varying float vAlpha;
+
+                    void main() {
+                        vec3 pos = position;
+
+                        // Organic movement using FBM noise
+                        float noiseX = fbm(vec3(pos * 0.8 + uTime * 0.15));
+                        float noiseY = fbm(vec3(pos * 0.7 + uTime * 0.12 + 10.0));
+                        float noiseZ = fbm(vec3(pos * 0.9 + uTime * 0.18 + 20.0));
+
+                        pos.x += noiseX * 1.6;
+                        pos.y += noiseY * 1.3;
+                        pos.z += noiseZ * 1.1;
+
+                        vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+                        gl_PointSize = size * uPixelRatio * (280.0 / -mvPosition.z);
+                        gl_Position = projectionMatrix * mvPosition;
+
+                        float dist = length(pos);
+                        vAlpha = 0.55 + (sin(uTime * 0.8 + dist) * 0.12);
+                    }
+                `,
+                fragmentShader: `
+                    uniform vec3 uColor;
+                    varying float vAlpha;
+
+                    void main() {
+                        float dist = length(gl_PointCoord - vec2(0.5));
+                        float alpha = 1.0 - smoothstep(0.0, 0.48, dist);
+                        gl_FragColor = vec4(uColor, alpha * vAlpha);
+                    }
+                `,
                 transparent: true,
-                opacity: 0.7,
+                depthWrite: false,
                 blending: THREE.AdditiveBlending
             });
 
-            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-            scene.add(particlesMesh);
+            const particles = new THREE.Points(geometry, material);
+            scene.add(particles);
 
-            camera.position.z = 6;
+            camera.position.z = 7.2;
 
-            let mouseX = 0;
-            let mouseY = 0;
-
-            document.addEventListener('mousemove', (event) => {
-                mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-                mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-            });
+            let time = 0;
+            let lastTime = performance.now();
 
             function animate() {
                 requestAnimationFrame(animate);
 
-                const positions = particlesGeometry.attributes.position.array;
+                const now = performance.now();
+                if (now - lastTime < 16.5) return;
+                lastTime = now;
 
-                for (let i = 0; i < positions.length; i += 3) {
-                    positions[i] += velocityArray[i];
-                    positions[i + 1] += velocityArray[i + 1];
-                    positions[i + 2] += velocityArray[i + 2];
+                time += 0.016;
+                material.uniforms.uTime.value = time;
 
-                    // Gentle bounds
-                    if (Math.abs(positions[i]) > 9) velocityArray[i] *= -1;
-                    if (Math.abs(positions[i + 1]) > 9) velocityArray[i + 1] *= -1;
-                    if (Math.abs(positions[i + 2]) > 9) velocityArray[i + 2] *= -1;
-                }
-
-                particlesGeometry.attributes.position.needsUpdate = true;
-
-                particlesMesh.rotation.y = mouseX * 0.15;
-                particlesMesh.rotation.x = mouseY * 0.15;
+                // Very subtle overall rotation
+                particles.rotation.y = time * 0.015;
 
                 renderer.render(scene, camera);
             }
 
             animate();
 
-            window.addEventListener('resize', () => {
+            function onResize() {
                 camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+
+            window.addEventListener('resize', onResize);
+
+            // Pause animation when tab is hidden (mobile optimization)
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    renderer.setAnimationLoop(null);
+                } else {
+                    animate();
+                }
             });
         }
 
-        // Initialize everything
         window.onload = function() {
             initThreeJS();
         };
