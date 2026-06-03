@@ -1,0 +1,41 @@
+name: Access Request Automation
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  acknowledge-access-request:
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.labels.*.name, 'access-request')
+    steps:
+      - name: Add automated acknowledgment comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue_number = context.issue.number;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number,
+              body: `Thank you for your access request.
+
+**This is an automated acknowledgment.**
+
+Your request has been received and will be reviewed personally by Metta Thomas. 
+
+Please note the following:
+- Full papers are shared only under a specific license agreement.
+- **All materials are subject to a strict prohibition on use for AI/LLM training or derivative machine learning purposes** (regardless of commercial or non-commercial intent).
+- Approval is not guaranteed and is granted on a case-by-case basis.
+
+You will receive a direct response within a reasonable timeframe.
+
+If you have not already done so, please ensure your request includes sufficient context about your research interests and intended use.`
+            });
+
+            // Optionally add a project or label if needed
+            console.log('Automated acknowledgment posted for access request #' + issue_number);

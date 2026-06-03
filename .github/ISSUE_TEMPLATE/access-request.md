@@ -1,25 +1,25 @@
 ---
-name: Paper Access Request
-about: Request access to full technical papers from the private archive
+name: Request Access to Full Papers
+about: Submit a request for the complete technical manuscripts from the private archive
 labels: access-request
+assignees: IAmM3ta
 ---
 
-**Research Interest**
+### Research Context
 
-Please briefly describe your research area and why you are interested in these specific papers.
+Please describe your research interests and why these specific papers are relevant to your work.
 
-**Intended Use**
+### Intended Use
 
-How do you plan to use the materials? (e.g., citation in academic work, collaboration, personal study, etc.)
+How do you plan to use the materials? (citation, collaboration, study, etc.)
 
-**Affiliation** (optional)
+### Affiliation (optional)
 
-University / Institution / Independent researcher
+University, institution, or independent status.
 
-**Additional Comments**
+### Additional Information
 
-Any other relevant information.
+Any other details that might help evaluate the request.
 
 ---
-
-**Note**: All requests are reviewed personally by the author. Approval is granted under a specific license agreement that includes strong IP protections, including a prohibition on AI training use. Full papers are not publicly distributed.
+**Important**: All materials are shared under a strict license that includes a blanket prohibition on use for AI training, fine-tuning, or machine learning purposes. By submitting this request you acknowledge these terms.
