@@ -13,7 +13,7 @@ This repository serves as the public overview and citation hub for research by M
 
 **Full technical papers, detailed derivations, and complete manuscripts are not publicly hosted here.**
 
-They are maintained in a controlled private archive and made available **only upon direct request** under explicit terms that protect the author’s intellectual property.
+They are maintained in the controlled private archive (**metta-thomas-private-archive**) and made available **only upon direct request** under explicit terms that protect the author’s intellectual property.
 
 **Core IP Protections (apply to all materials):**
 
@@ -21,15 +21,15 @@ They are maintained in a controlled private archive and made available **only up
 - **Explicit prohibition** on use as training data, fine-tuning data, or input for any AI / LLM / machine learning system (including RAG, embeddings, or dataset creation). This ban applies regardless of commercial or non-commercial intent.
 - Requests for full papers are evaluated on a case-by-case basis. Approved access is granted under a specific license agreement.
 
-**How to Request Full Papers**
+**How to Request Full Papers (Automated Process)**
 
-Serious academic or research inquiries may be directed to:
+1. Open a new issue in this repository.
+2. Use the **"Request Access to Full Papers"** issue template.
+3. Provide context about your research interests and intended use.
 
-m3tamix@gmail.com
+A GitHub Action will automatically post an acknowledgment. All requests are personally reviewed by the author.
 
-or by opening an issue in this repository with the subject line **"Paper Access Request"**.
-
-Please include a brief description of your research interest and intended use.
+You can also email m3tamix@gmail.com directly.
 
 ---
 
