@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playground • Metta Thomas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Leaflet for FloatMaps demo -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Space Grotesk', 'Inter', system_ui, sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+        }
+
+        .demo-card {
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .demo-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        #map {
+            height: 420px;
+            border-radius: 16px;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- Navbar -->
+    <nav class="border-b border-white/10 bg-zinc-950/95 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-white rounded-2xl flex items-center justify-center">
+                        <span class="text-zinc-950 font-bold text-2xl tracking-[-2px]">MT</span>
+                    </div>
+                    <a href="index.html" class="font-semibold text-2xl tracking-tighter hover:text-white">Metta Thomas</a>
+                </div>
+                
+                <div class="flex items-center gap-x-9 text-sm font-medium">
+                    <a href="index.html#research" class="nav-link">Research</a>
+                    <a href="projects.html" class="nav-link">Projects</a>
+                    <a href="playground.html" class="nav-link text-white">Playground</a>
+                    <a href="index.html#writings" class="nav-link">Writings</a>
+                    
+                    <a href="https://github.com/IAmM3ta/metta-thomas-private-archive" 
+                       class="flex items-center gap-x-2 px-5 h-10 text-sm border border-white/15 hover:bg-white/5 rounded-2xl transition-all">
+                        <i class="fa-solid fa-lock text-xs"></i>
+                        <span class="font-medium ml-1.5">Archive</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="max-w-screen-2xl mx-auto px-8 pt-14 pb-10">
+        <div class="max-w-2xl">
+            <div class="text-xs font-mono tracking-[2.5px] text-blue-400 mb-3">INTERACTIVE EXPERIMENTS</div>
+            <h1 class="text-5xl font-semibold tracking-tighter heading-font">Playground</h1>
+            <p class="mt-4 text-lg text-zinc-400 max-w-md">
+                A space to explore interactive demos and early experiments from ongoing work.
+            </p>
+        </div>
+    </div>
+
+    <!-- Demo Cards -->
+    <div class="max-w-screen-2xl mx-auto px-8 pb-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- FloatMaps Demo -->
+            <div class="demo-card group bg-zinc-900 border border-white/10 rounded-3xl overflow-hidden flex flex-col">
+                <div class="h-48 bg-zinc-800 flex items-center justify-center relative">
+                    <div class="text-center">
+                        <i class="fa-solid fa-map-marked text-5xl text-blue-400 mb-4"></i>
+                        <div class="text-sm text-zinc-400">Interactive Mapping</div>
+                    </div>
+                </div>
+                
+                <div class="p-7 flex-1 flex flex-col">
+                    <div>
+                        <h3 class="font-semibold text-2xl tracking-tight">FloatMaps</h3>
+                        <p class="text-sm text-zinc-400 mt-1">Interactive demo of the core mapping and infrastructure platform.</p>
+                    </div>
+                    
+                    <div class="mt-auto pt-6">
+                        <button onclick="showFloatMapsDemo()" 
+                                class="w-full inline-flex items-center justify-center gap-x-2 px-6 h-11 bg-white text-zinc-950 font-semibold rounded-2xl hover:bg-white/90 transition-all text-sm">
+                            Launch Demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Placeholder for future demos -->
+            <div class="demo-card group bg-zinc-900 border border-white/10 rounded-3xl overflow-hidden flex flex-col opacity-60">
+                <div class="h-48 bg-zinc-800 flex items-center justify-center">
+                    <i class="fa-solid fa-magic text-5xl text-violet-400"></i>
+                </div>
+                
+                <div class="p-7 flex-1 flex flex-col">
+                    <div>
+                        <h3 class="font-semibold text-2xl tracking-tight">GLSL Shader Experiments</h3>
+                        <p class="text-sm text-zinc-400 mt-1">Coming soon</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FloatMaps Demo Modal -->
+    <div id="floatmaps-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+        <div class="bg-zinc-900 border border-white/10 rounded-3xl w-full max-w-5xl overflow-hidden">
+            <div class="flex items-center justify-between px-8 py-5 border-b border-white/10">
+                <div>
+                    <h3 class="font-semibold text-xl">FloatMaps — Interactive Demo</h3>
+                    <p class="text-sm text-zinc-400">Battery Swap Infrastructure Map</p>
+                </div>
+                <button onclick="hideFloatMapsDemo()" class="text-zinc-400 hover:text-white text-2xl leading-none">&times;</button>
+            </div>
+
+            <div class="p-6">
+                <div id="map" class="w-full rounded-2xl border border-white/10"></div>
+            </div>
+
+            <div class="px-8 py-5 border-t border-white/10 text-xs text-zinc-400">
+                Functional prototype. Real data and advanced features in development.
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-t border-white/10 py-8">
+        <div class="max-w-screen-2xl mx-auto px-8 text-sm text-zinc-500 flex justify-between">
+            <div>
+                © 2025–2026 Robert F. Thomas
+            </div>
+            <a href="index.html" class="hover:text-zinc-300">Back to Research</a>
+        </div>
+    </footer>
+
+    <script>
+        let mapInstance = null;
+
+        function showFloatMapsDemo() {
+            const modal = document.getElementById('floatmaps-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            if (!mapInstance) {
+                setTimeout(() => {
+                    mapInstance = L.map('map').setView([35.5951, -82.5515], 12);
+
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; OpenStreetMap contributors'
+                    }).addTo(mapInstance);
+
+                    // Sample stations
+                    const stations = [
+                        { lat: 35.5951, lng: -82.5515, name: "West Asheville Hub", status: "4/6 available" },
+                        { lat: 35.6123, lng: -82.5432, name: "Downtown Station", status: "2/4 available" },
+                        { lat: 35.5789, lng: -82.5721, name: "River Arts District", status: "5/5 available" }
+                    ];
+
+                    stations.forEach(station => {
+                        L.marker([station.lat, station.lng])
+                            .addTo(mapInstance)
+                            .bindPopup(`<b>${station.name}</b><br>${station.status}`);
+                    });
+
+                    // Sample riders
+                    const riders = [
+                        { lat: 35.6012, lng: -82.5601 },
+                        { lat: 35.5890, lng: -82.5388 }
+                    ];
+
+                    riders.forEach(rider => {
+                        L.circleMarker([rider.lat, rider.lng], {
+                            radius: 6,
+                            fillColor: "#10b981",
+                            color: "#10b981",
+                            weight: 2,
+                            fillOpacity: 0.6
+                        }).addTo(mapInstance);
+                    });
+                }, 300);
+            }
+        }
+
+        function hideFloatMapsDemo() {
+            const modal = document.getElementById('floatmaps-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+
+        // Close modal on outside click
+        document.getElementById('floatmaps-modal').addEventListener('click', function(e) {
+            if (e.target === this) hideFloatMapsDemo();
+        });
+    </script>
+</body>
+</html>
