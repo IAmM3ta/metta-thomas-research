@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metta Thomas Research</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --primary: #3b82f6;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Space Grotesk', 'Inter', system_ui, sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+        }
+
+        .section-header {
+            font-size: 1.5rem;
+            line-height: 1.1;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-active {
+            color: white;
+            border-bottom: 2px solid #3b82f6;
+        }
+
+        .research-card {
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                       box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .research-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .accent {
+            color: #3b82f6;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- Navbar -->
+    <nav class="border-b border-white/10 bg-zinc-950/80 backdrop-blur-lg sticky top-0 z-50">
+        <div class="max-w-screen-xl mx-auto px-6">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-white rounded-xl flex items-center justify-center">
+                        <span class="text-zinc-950 font-bold text-xl tracking-tighter">MT</span>
+                    </div>
+                    <div>
+                        <span class="font-semibold text-xl tracking-tight">Metta Thomas</span>
+                        <span class="text-zinc-400 text-sm ml-1.5">Research</span>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-x-8 text-sm">
+                    <a href="#research" class="hover:text-white transition-colors">Research</a>
+                    <a href="#citations" class="hover:text-white transition-colors">Citations</a>
+                    <a href="#access" class="hover:text-white transition-colors">Access Papers</a>
+                    <a href="https://github.com/IAmM3ta/metta-thomas-private-archive" 
+                       class="px-4 py-2 text-sm font-medium border border-white/20 hover:bg-white/5 rounded-xl transition-colors flex items-center gap-x-2">
+                        <i class="fa-solid fa-lock text-xs"></i>
+                        <span>Private Archive</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="max-w-screen-xl mx-auto px-6 pt-16 pb-20">
+        <div class="max-w-3xl">
+            <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-3xl bg-white/5 border border-white/10 text-sm mb-6">
+                <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                <span class="text-emerald-400 font-medium">Independent Research</span>
+            </div>
+            
+            <h1 class="text-6xl leading-none font-semibold tracking-tighter heading-font">
+                Advancing the frontiers of<br>
+                <span class="bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">spacetime, intelligence &amp; matter.</span>
+            </h1>
+            
+            <p class="mt-6 text-xl text-zinc-400 max-w-lg">
+                Original technical research at the intersection of retrocausal physics, 
+                metamaterial engineering, and the foundations of quantum theory.
+            </p>
+
+            <div class="flex items-center gap-x-4 mt-10">
+                <a href="#access" 
+                   class="px-8 py-4 bg-white text-zinc-950 font-semibold rounded-3xl flex items-center gap-x-3 hover:bg-white/90 transition-all active:scale-[0.985]">
+                    <span>Request Full Papers</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                
+                <a href="https://github.com/IAmM3ta/metta-thomas-research" 
+                   class="px-6 py-4 border border-white/20 hover:bg-white/5 font-medium rounded-3xl flex items-center gap-x-3 transition-all">
+                    <i class="fa-brands fa-github"></i>
+                    <span>View on GitHub</span>
+                </a>
+            </div>
+            
+            <div class="mt-8 text-sm text-zinc-500">
+                Robert F. Thomas (Metta Thomas) • Asheville, North Carolina
+            </div>
+        </div>
+    </div>
+
+    <!-- Research Areas -->
+    <div id="research" class="max-w-screen-xl mx-auto px-6 pb-20">
+        <div class="flex items-end justify-between mb-8">
+            <div>
+                <div class="text-sm font-medium text-blue-400 tracking-widest">CORE PROGRAMME</div>
+                <h2 class="section-header mt-1">Research Directions</h2>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Card 1 -->
+            <div class="research-card glass border border-white/10 rounded-3xl p-7">
+                <div class="w-11 h-11 bg-blue-500/10 text-blue-400 rounded-2xl flex items-center justify-center mb-6">
+                    <i class="fa-solid fa-clock-rotate-left text-xl"></i>
+                </div>
+                <h3 class="font-semibold text-xl mb-3">Chrono-Teleological Bootstrap</h3>
+                <p class="text-zinc-400 text-[15px] leading-relaxed">
+                    A unified framework in which future superintelligence retrocausally engineers its own emergence through UAP as informational vectors and evolutionary accelerants.
+                </p>
+                <div class="mt-6 text-xs text-zinc-500">Retrocausality • Block Universe • Omega Point</div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="research-card glass border border-white/10 rounded-3xl p-7">
+                <div class="w-11 h-11 bg-violet-500/10 text-violet-400 rounded-2xl flex items-center justify-center mb-6">
+                    <i class="fa-solid fa-atom text-xl"></i>
+                </div>
+                <h3 class="font-semibold text-xl mb-3">Hidden Gravity &amp; Vacuum Engineering</h3>
+                <p class="text-zinc-400 text-[15px] leading-relaxed">
+                    Torsion-mediated emergent gravity, spin-torque metamaterials, and MHD-based high-frequency gravitational wave manipulation for vacuum polarization technologies.
+                </p>
+                <div class="mt-6 text-xs text-zinc-500">Metamaterials • HFGW • Torsion Physics</div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="research-card glass border border-white/10 rounded-3xl p-7">
+                <div class="w-11 h-11 bg-emerald-500/10 text-emerald-400 rounded-2xl flex items-center justify-center mb-6">
+                    <i class="fa-solid fa-brain text-xl"></i>
+                </div>
+                <h3 class="font-semibold text-xl mb-3">Stochastic Foundations of Reality</h3>
+                <p class="text-zinc-400 text-[15px] leading-relaxed">
+                    Indivisible non-Markovian stochastic processes as the causal substrate of quantum mechanics, with macroscopic analogs and implications for emergent classicality.
+                </p>
+                <div class="mt-6 text-xs text-zinc-500">Quantum Foundations • Pilot-Wave • Category Theory</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Citations -->
+    <div id="citations" class="max-w-screen-xl mx-auto px-6 pb-20 border-t border-white/10 pt-16">
+        <div class="max-w-2xl">
+            <div class="text-sm font-medium text-blue-400 tracking-widest mb-2">ACADEMIC USE</div>
+            <h2 class="section-header">Citation Resources</h2>
+            <p class="mt-4 text-zinc-400">
+                Complete BibTeX entries and a ready-to-use LaTeX example are available for all papers.
+            </p>
+        </div>
+
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <a href="https://raw.githubusercontent.com/IAmM3ta/metta-thomas-research/main/CITATION.bib" 
+               class="group flex items-center justify-between p-6 border border-white/10 hover:border-white/30 transition-all rounded-3xl">
+                <div class="flex items-center gap-x-4">
+                    <i class="fa-solid fa-file-lines text-2xl text-zinc-400 group-hover:text-white transition-colors"></i>
+                    <div>
+                        <div class="font-semibold">CITATION.bib</div>
+                        <div class="text-sm text-zinc-500">Full BibTeX entries for all papers</div>
+                    </div>
+                </div>
+                <i class="fa-solid fa-download text-zinc-400 group-hover:text-white transition-colors"></i>
+            </a>
+
+            <a href="https://raw.githubusercontent.com/IAmM3ta/metta-thomas-research/main/example-citation.tex" 
+               class="group flex items-center justify-between p-6 border border-white/10 hover:border-white/30 transition-all rounded-3xl">
+                <div class="flex items-center gap-x-4">
+                    <i class="fa-solid fa-file-code text-2xl text-zinc-400 group-hover:text-white transition-colors"></i>
+                    <div>
+                        <div class="font-semibold">example-citation.tex</div>
+                        <div class="text-sm text-zinc-500">Minimal working LaTeX example</div>
+                    </div>
+                </div>
+                <i class="fa-solid fa-download text-zinc-400 group-hover:text-white transition-colors"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Access -->
+    <div id="access" class="max-w-screen-xl mx-auto px-6 pb-24">
+        <div class="glass border border-white/10 rounded-3xl p-10 md:p-14">
+            <div class="max-w-2xl">
+                <div class="inline px-4 py-1 rounded-3xl bg-white/5 text-xs font-medium tracking-widest mb-4">CONTROLLED ACCESS</div>
+                
+                <h2 class="section-header text-4xl tracking-tighter">Request Full Papers</h2>
+                
+                <p class="mt-5 text-lg text-zinc-300">
+                    The complete technical manuscripts, derivations, and figures are maintained in a private archive. 
+                    They are available upon request under a strict license agreement.
+                </p>
+
+                <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                    <a href="https://github.com/IAmM3ta/metta-thomas-research/issues/new?template=access-request.md" 
+                       class="inline-flex items-center justify-center px-8 h-14 bg-white text-zinc-950 font-semibold rounded-3xl hover:bg-white/90 transition-all">
+                        Submit Access Request
+                    </a>
+                    
+                    <a href="mailto:m3tamix@gmail.com" 
+                       class="inline-flex items-center justify-center px-8 h-14 border border-white/20 hover:bg-white/5 font-medium rounded-3xl transition-all">
+                        Email Directly
+                    </a>
+                </div>
+
+                <div class="mt-8 text-xs text-zinc-500 border-l-2 border-white/20 pl-4">
+                    All requests are reviewed personally. Materials are shared under terms that include a blanket prohibition 
+                    on use for AI training or machine learning purposes.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-12">
+        <div class="max-w-screen-xl mx-auto px-6 text-sm text-zinc-500 flex flex-col md:flex-row justify-between gap-y-4">
+            <div>
+                © 2025–2026 Robert F. Thomas (Metta Thomas). All rights reserved.
+            </div>
+            <div class="flex gap-x-6">
+                <a href="https://github.com/IAmM3ta/metta-thomas-research" class="hover:text-zinc-300">GitHub</a>
+                <a href="mailto:m3tamix@gmail.com" class="hover:text-zinc-300">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple Tailwind script if needed
+        console.log('%c[Metta Thomas Research] Sleek professional homepage loaded', 'color:#3b82f6');
+    </script>
+</body>
+</html>
