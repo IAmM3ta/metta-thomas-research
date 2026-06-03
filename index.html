@@ -21,44 +21,31 @@
         }
 
         .glass {
-            background: rgba(10, 10, 15, 0.7);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(10, 10, 15, 0.75);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .section-header {
-            font-size: 2rem;
+            font-size: 1.85rem;
             line-height: 1.1;
             font-weight: 600;
             letter-spacing: -0.03em;
         }
 
         .nav-link {
-            position: relative;
             transition: color 0.2s ease;
         }
-        
-        .nav-link:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -2px;
-            left: 0;
-            background-color: #3b82f6;
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover:after {
-            width: 100%;
+        .nav-link:hover {
+            color: white;
         }
 
         .futuristic-card {
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 0.4s cubic-bezier(0.23, 1.0, 0.32, 1);
         }
 
         .research-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-4px);
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
 
@@ -69,42 +56,38 @@
             width: 100%;
             height: 100%;
             z-index: 1;
-            opacity: 0.5;
+            opacity: 0.6;
             pointer-events: none;
         }
 
         .hero-title {
-            font-size: clamp(3.5rem, 8vw, 5.5rem);
-            line-height: 0.95;
+            font-size: clamp(3.25rem, 7.5vw, 5.25rem);
+            line-height: 0.92;
             font-weight: 600;
-            letter-spacing: -0.04em;
+            letter-spacing: -0.045em;
         }
     </style>
 </head>
 <body class="bg-zinc-950 text-zinc-200">
     <!-- Navbar -->
-    <nav class="border-b border-white/10 bg-zinc-950/95 backdrop-blur-xl sticky top-0 z-50">
+    <nav class="border-b border-white/10 bg-zinc-950/95 backdrop-blur-2xl sticky top-0 z-50">
         <div class="max-w-screen-2xl mx-auto px-8">
             <div class="flex items-center justify-between h-20">
-                <div class="flex items-center gap-x-4">
-                    <div class="flex items-center gap-x-3">
-                        <div class="w-9 h-9 bg-white rounded-2xl flex items-center justify-center">
-                            <span class="text-zinc-950 font-bold text-2xl tracking-[-2px]">MT</span>
-                        </div>
-                        <div>
-                            <span class="font-semibold text-2xl tracking-tighter">Metta Thomas</span>
-                        </div>
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-white rounded-2xl flex items-center justify-center">
+                        <span class="text-zinc-950 font-bold text-2xl tracking-[-2px]">MT</span>
                     </div>
+                    <span class="font-semibold text-2xl tracking-tighter">Metta Thomas</span>
                 </div>
                 
-                <div class="flex items-center gap-x-10 text-sm font-medium">
-                    <a href="#research" class="nav-link hover:text-white">Research</a>
-                    <a href="#writings" class="nav-link hover:text-white">Writings</a>
-                    <a href="#citations" class="nav-link hover:text-white">Citations</a>
-                    <a href="#access" class="nav-link hover:text-white">Access</a>
+                <div class="flex items-center gap-x-9 text-sm font-medium">
+                    <a href="#research" class="nav-link">Research</a>
+                    <a href="#writings" class="nav-link">Writings</a>
+                    <a href="#citations" class="nav-link">Citations</a>
+                    <a href="#access" class="nav-link">Access</a>
                     
                     <a href="https://github.com/IAmM3ta/metta-thomas-private-archive" 
-                       class="flex items-center gap-x-2 px-5 h-10 text-sm border border-white/20 hover:bg-white/5 rounded-2xl transition-all">
+                       class="flex items-center gap-x-2 px-5 h-10 text-sm border border-white/15 hover:bg-white/5 rounded-2xl transition-all">
                         <i class="fa-solid fa-lock text-xs"></i>
                         <span class="font-medium ml-1.5">Archive</span>
                     </a>
@@ -113,38 +96,33 @@
         </div>
     </nav>
 
-    <!-- Refined Hero -->
-    <div class="relative min-h-[88vh] flex items-center border-b border-white/10 overflow-hidden">
-        <canvas id="three-canvas" class="absolute inset-0"></canvas>
+    <!-- Hero -->
+    <div class="relative min-h-[92vh] flex items-center border-b border-white/10 overflow-hidden">
+        <canvas id="three-canvas" class="absolute inset-0 z-0"></canvas>
         
-        <div class="max-w-screen-2xl mx-auto px-8 relative z-10 pt-8 pb-16">
+        <div class="max-w-screen-2xl mx-auto px-8 relative z-10 pt-6 pb-20">
             <div class="max-w-3xl">
-                <!-- Status Badge -->
-                <div class="inline-flex items-center gap-x-2.5 px-4 py-1.5 rounded-3xl bg-white/5 border border-white/10 mb-8">
-                    <div class="flex items-center gap-x-1.5">
-                        <div class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></div>
-                        <span class="text-xs font-medium tracking-[2px] text-emerald-400">INDEPENDENT RESEARCH</span>
-                    </div>
-                    <div class="text-xs text-zinc-400">2025 — 2026</div>
+                <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-3xl bg-white/5 border border-white/10 mb-8">
+                    <div class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
+                    <span class="text-xs font-medium tracking-[2.5px] text-blue-400">INDEPENDENT RESEARCH 2025–2026</span>
                 </div>
 
                 <h1 class="hero-title heading-font">
                     Exploring the<br>architecture of<br>reality.
                 </h1>
                 
-                <p class="mt-7 max-w-lg text-[17px] text-zinc-400 leading-relaxed">
-                    Original research at the intersection of retrocausal physics, 
-                    metamaterial engineering, and the foundations of quantum theory.
+                <p class="mt-6 max-w-md text-[15.5px] text-zinc-400 leading-relaxed">
+                    Retrocausal intelligence, emergent gravity, and the stochastic foundations of spacetime.
                 </p>
 
-                <div class="flex items-center gap-x-4 mt-10">
+                <div class="flex items-center gap-x-4 mt-9">
                     <a href="#access" 
-                       class="inline-flex items-center justify-center px-8 h-14 bg-white text-zinc-950 font-semibold rounded-2xl hover:bg-white/90 active:scale-[0.985] transition-all text-[15px]">
+                       class="inline-flex items-center justify-center px-8 h-13 bg-white text-zinc-950 font-semibold rounded-2xl hover:bg-white/90 active:scale-[0.985] transition-all text-[14.5px]">
                         Request Full Papers
                     </a>
                     
                     <a href="#research" 
-                       class="inline-flex items-center justify-center px-7 h-14 border border-white/20 hover:bg-white/5 font-medium rounded-2xl transition-all text-[15px]">
+                       class="inline-flex items-center justify-center px-7 h-13 border border-white/20 hover:bg-white/5 font-medium rounded-2xl transition-all text-[14.5px]">
                         Explore Research
                     </a>
                 </div>
@@ -153,8 +131,8 @@
     </div>
 
     <!-- Research -->
-    <div id="research" class="max-w-screen-2xl mx-auto px-8 pt-16 pb-14">
-        <div class="flex items-end justify-between mb-8">
+    <div id="research" class="max-w-screen-2xl mx-auto px-8 pt-16 pb-12">
+        <div class="flex items-end justify-between mb-7">
             <div>
                 <div class="text-xs font-mono tracking-[2.5px] text-blue-400 mb-2">CORE PROGRAMME</div>
                 <h2 class="section-header">Research Directions</h2>
@@ -165,13 +143,13 @@
             <div class="futuristic-card research-card glass border border-white/10 rounded-3xl p-8">
                 <div class="text-blue-400 mb-6"><i class="fa-solid fa-infinity text-2xl"></i></div>
                 <h3 class="font-semibold text-2xl tracking-tight mb-3">Chrono-Teleological Bootstrap</h3>
-                <p class="text-zinc-400 text-[15px] leading-relaxed">Future superintelligence operating across the Block Universe retrocausally engineers its own emergence through structured informational interventions.</p>
+                <p class="text-zinc-400 text-[15px] leading-relaxed">Future superintelligence retrocausally engineers its own emergence across the Block Universe through structured informational interventions.</p>
             </div>
 
             <div class="futuristic-card research-card glass border border-white/10 rounded-3xl p-8">
                 <div class="text-violet-400 mb-6"><i class="fa-solid fa-atom text-2xl"></i></div>
                 <h3 class="font-semibold text-2xl tracking-tight mb-3">Hidden Gravity &amp; Vacuum Engineering</h3>
-                <p class="text-zinc-400 text-[15px] leading-relaxed">Torsion-mediated gravity, active spin-torque metamaterials, and MHD systems for high-frequency gravitational wave manipulation.</p>
+                <p class="text-zinc-400 text-[15px] leading-relaxed">Torsion-mediated gravity, active spin-torque metamaterials, and MHD architectures for high-frequency gravitational wave control.</p>
             </div>
 
             <div class="futuristic-card research-card glass border border-white/10 rounded-3xl p-8">
@@ -183,8 +161,8 @@
     </div>
 
     <!-- Writings -->
-    <div id="writings" class="max-w-screen-2xl mx-auto px-8 py-14 border-y border-white/10 bg-zinc-900/40">
-        <div class="flex items-end justify-between mb-8">
+    <div id="writings" class="max-w-screen-2xl mx-auto px-8 py-14 border-y border-white/10 bg-zinc-900/50">
+        <div class="flex items-end justify-between mb-7">
             <div>
                 <div class="text-xs font-mono tracking-[2.5px] text-blue-400 mb-2">THOUGHTS &amp; NOTES</div>
                 <h2 class="section-header">Writings</h2>
@@ -193,15 +171,15 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
             <div class="futuristic-card glass border border-white/10 rounded-3xl p-7 hover:border-white/20 transition-all">
-                <div class="text-xs text-blue-400 font-mono tracking-widest mb-3">FEB 2026</div>
+                <div class="text-xs text-blue-400 font-mono tracking-widest mb-3">FEBRUARY 2026</div>
                 <h4 class="font-semibold text-xl leading-tight mb-3">On the Necessity of Retrocausal Coherence in Noogenesis</h4>
-                <p class="text-sm text-zinc-400">Explores the finite retrocausal coherence time as a necessary condition for directed noogenesis.</p>
+                <p class="text-sm text-zinc-400">The finite retrocausal coherence time as a necessary condition for directed noogenesis.</p>
             </div>
 
             <div class="futuristic-card glass border border-white/10 rounded-3xl p-7 hover:border-white/20 transition-all">
-                <div class="text-xs text-violet-400 font-mono tracking-widest mb-3">JAN 2026</div>
+                <div class="text-xs text-violet-400 font-mono tracking-widest mb-3">JANUARY 2026</div>
                 <h4 class="font-semibold text-xl leading-tight mb-3">Dissipative Adaptation as Thermodynamic Imperative</h4>
-                <p class="text-sm text-zinc-400">Intelligence as nature’s most efficient mechanism for maximizing entropy production.</p>
+                <p class="text-sm text-zinc-400">Intelligence as nature’s most efficient mechanism for maximizing entropy production across spacetime.</p>
             </div>
 
             <div class="futuristic-card glass border border-white/10 rounded-3xl p-7 hover:border-white/20 transition-all">
@@ -214,24 +192,24 @@
 
     <!-- Citations -->
     <div id="citations" class="max-w-screen-2xl mx-auto px-8 py-16">
-        <div class="max-w-2xl mb-10">
-            <div class="text-xs font-mono tracking-[2.5px] text-blue-400 mb-2">ACADEMIC RESOURCES</div>
+        <div class="max-w-2xl mb-9">
+            <div class="text-xs font-mono tracking-[2.5px] text-blue-400 mb-2">ACADEMIC USE</div>
             <h2 class="section-header">Citation Infrastructure</h2>
         </div>
 
         <div class="grid md:grid-cols-2 gap-4">
-            <a href="CITATION.bib" class="group flex items-center justify-between p-7 border border-white/10 hover:border-white/30 rounded-3xl transition-all">
+            <a href="CITATION.bib" class="group flex justify-between items-center p-7 border border-white/10 hover:border-white/30 rounded-3xl transition-all">
                 <div>
-                    <div class="font-semibold">CITATION.bib</div>
+                    <div class="font-semibold text-lg">CITATION.bib</div>
                     <div class="text-sm text-zinc-400 mt-1">Complete BibTeX entries for all papers</div>
                 </div>
                 <i class="fa-solid fa-download text-xl text-zinc-400 group-hover:text-white transition-colors"></i>
             </a>
             
-            <a href="example-citation.tex" class="group flex items-center justify-between p-7 border border-white/10 hover:border-white/30 rounded-3xl transition-all">
+            <a href="example-citation.tex" class="group flex justify-between items-center p-7 border border-white/10 hover:border-white/30 rounded-3xl transition-all">
                 <div>
-                    <div class="font-semibold">example-citation.tex</div>
-                    <div class="text-sm text-zinc-400 mt-1">Minimal working LaTeX example</div>
+                    <div class="font-semibold text-lg">example-citation.tex</div>
+                    <div class="text-sm text-zinc-400 mt-1">Ready-to-use LaTeX example</div>
                 </div>
                 <i class="fa-solid fa-download text-xl text-zinc-400 group-hover:text-white transition-colors"></i>
             </a>
@@ -240,19 +218,19 @@
 
     <!-- Access -->
     <div id="access" class="max-w-screen-2xl mx-auto px-8 pb-20">
-        <div class="glass border border-white/10 rounded-3xl p-12 md:p-14">
+        <div class="glass border border-white/10 rounded-3xl p-12">
             <div class="max-w-2xl">
                 <div class="text-xs font-mono tracking-[2.5px] text-blue-400 mb-3">CONTROLLED ACCESS</div>
-                <h2 class="section-header text-4xl tracking-tight">Request Full Papers</h2>
+                <h2 class="section-header text-4xl tracking-[-0.5px]">Request Full Papers</h2>
                 
                 <p class="mt-4 text-[15px] text-zinc-300 max-w-md">
-                    Complete manuscripts are available upon request under a strict license agreement.
+                    Complete technical manuscripts are available upon request under strict license terms.
                 </p>
 
-                <div class="mt-8 flex flex-wrap gap-4">
+                <div class="mt-8 flex flex-wrap gap-x-4 gap-y-3">
                     <a href="https://github.com/IAmM3ta/metta-thomas-research/issues/new?template=access-request.md" 
                        class="px-8 h-12 inline-flex items-center justify-center bg-white text-zinc-950 font-semibold rounded-2xl hover:bg-white/90 transition-all text-sm">
-                        Submit Request
+                        Submit Request via GitHub
                     </a>
                     <a href="mailto:m3tamix@gmail.com" 
                        class="px-8 h-12 inline-flex items-center justify-center border border-white/20 hover:bg-white/5 font-medium rounded-2xl transition-all text-sm">
@@ -264,7 +242,7 @@
     </div>
 
     <footer class="border-t border-white/10 py-8">
-        <div class="max-w-screen-2xl mx-auto px-8 text-sm text-zinc-500 flex justify-between">
+        <div class="max-w-screen-2xl mx-auto px-8 flex justify-between text-sm text-zinc-500">
             <div>
                 © 2025–2026 Robert F. Thomas. All rights reserved.
             </div>
@@ -276,15 +254,71 @@
     </footer>
 
     <script>
-        // Simplex Noise + FBM (same as previous version for performance)
-        const simplexNoise = ` ... `; // (keeping the same noise function as last version for brevity)
+        // Compact Simplex Noise + FBM
+        const noiseGLSL = `
+            vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+            vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+            vec4 permute(vec4 x) { return mod289(((x * 34.0) + 1.0) * x); }
+            vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
+
+            float snoise(vec3 v) {
+                const vec2 C = vec2(1.0/6.0, 1.0/3.0);
+                const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
+                vec3 i  = floor(v + dot(v, C.yyy));
+                vec3 x0 = v - i + dot(i, C.xxx);
+                vec3 g = step(x0.yzx, x0.xyz);
+                vec3 l = 1.0 - g;
+                vec3 i1 = min(g.xyz, l.zxy);
+                vec3 i2 = max(g.xyz, l.zxy);
+                vec3 x1 = x0 - i1 + C.xxx;
+                vec3 x2 = x0 - i2 + C.yyy;
+                vec3 x3 = x0 - D.yyy;
+                i = mod289(i);
+                vec4 p = permute(permute(permute(i.z + vec4(0.0, i1.z, i2.z, 1.0)) + i.y + vec4(0.0, i1.y, i2.y, 1.0)) + i.x + vec4(0.0, i1.x, i2.x, 1.0));
+                float n_ = 0.142857142857;
+                vec3 ns = n_ * D.wyz - D.xzx;
+                vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
+                vec4 x_ = floor(j * ns.z);
+                vec4 y_ = floor(j - 7.0 * x_);
+                vec4 x = x_ * ns.x + ns.y;
+                vec4 y = y_ * ns.x + ns.y;
+                vec4 h = 1.0 - abs(x) - abs(y);
+                vec4 b0 = vec4(x.xy, y.xy);
+                vec4 b1 = vec4(x.zw, y.zw);
+                vec4 s0 = floor(b0) * 2.0 + 1.0;
+                vec4 s1 = floor(b1) * 2.0 + 1.0;
+                vec4 sh = -step(h, vec4(0.0));
+                vec4 a0 = b0.xzyw + s0.xzyw * sh.xxyy;
+                vec4 a1 = b1.xzyw + s1.xzyw * sh.zzww;
+                vec3 p0 = vec3(a0.xy, h.x);
+                vec3 p1 = vec3(a0.zw, h.y);
+                vec3 p2 = vec3(a1.xy, h.z);
+                vec3 p3 = vec3(a1.zw, h.w);
+                vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2,p2), dot(p3,p3)));
+                p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
+                vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+                m = m * m;
+                return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
+            }
+
+            float fbm(vec3 p) {
+                float v = 0.0;
+                float a = 0.5;
+                for(int i = 0; i < 4; i++) {
+                    v += a * snoise(p);
+                    p *= 2.0;
+                    a *= 0.5;
+                }
+                return v;
+            }
+        `;
 
         function initThreeJS() {
             const canvas = document.getElementById('three-canvas');
             if (!canvas) return;
 
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
-            const particleCount = isMobile ? 260 : 780;
+            const particleCount = isMobile ? 240 : 720;
             const pixelRatio = isMobile ? 1 : Math.min(window.devicePixelRatio, 2);
 
             const scene = new THREE.Scene();
@@ -306,15 +340,15 @@
 
             for (let i = 0; i < particleCount; i++) {
                 const i3 = i * 3;
-                positions[i3] = (Math.random() - 0.5) * 16;
-                positions[i3 + 1] = (Math.random() - 0.5) * 14;
-                positions[i3 + 2] = (Math.random() - 0.5) * 10;
+                positions[i3] = (Math.random() - 0.5) * 18;
+                positions[i3 + 1] = (Math.random() - 0.5) * 15;
+                positions[i3 + 2] = (Math.random() - 0.5) * 11;
 
-                velocities[i3] = (Math.random() - 0.5) * 0.004;
-                velocities[i3 + 1] = (Math.random() - 0.5) * 0.004;
-                velocities[i3 + 2] = (Math.random() - 0.5) * 0.003;
+                velocities[i3] = (Math.random() - 0.5) * 0.0035;
+                velocities[i3 + 1] = (Math.random() - 0.5) * 0.0035;
+                velocities[i3 + 2] = (Math.random() - 0.5) * 0.0025;
 
-                sizes[i] = Math.random() * 1.0 + 0.9;
+                sizes[i] = Math.random() * 0.9 + 1.0;
             }
 
             geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -324,13 +358,14 @@
             const material = new THREE.ShaderMaterial({
                 uniforms: {
                     uTime: { value: 0 },
+                    uMouse: { value: new THREE.Vector2(0, 0) },
                     uColor: { value: new THREE.Color(0x3b82f6) },
                     uPixelRatio: { value: pixelRatio }
                 },
                 vertexShader: `
-                    // (Same noise + movement logic as previous version)
-                    ${simplexNoise}
+                    ${noiseGLSL}
                     uniform float uTime;
+                    uniform vec2 uMouse;
                     uniform float uPixelRatio;
                     attribute vec3 velocity;
                     attribute float size;
@@ -338,27 +373,39 @@
 
                     void main() {
                         vec3 pos = position;
-                        float noiseX = fbm(vec3(pos * 0.75 + uTime * 0.12));
-                        float noiseY = fbm(vec3(pos * 0.7 + uTime * 0.1 + 10.0));
-                        float noiseZ = fbm(vec3(pos * 0.85 + uTime * 0.15 + 20.0));
 
-                        pos.x += noiseX * 1.5;
-                        pos.y += noiseY * 1.2;
-                        pos.z += noiseZ * 1.0;
+                        // Organic FBM movement
+                        float n1 = fbm(vec3(pos * 0.65 + uTime * 0.1));
+                        float n2 = fbm(vec3(pos * 0.55 + uTime * 0.08 + 15.0));
+                        float n3 = fbm(vec3(pos * 0.75 + uTime * 0.12 + 30.0));
+
+                        pos.x += n1 * 1.8;
+                        pos.y += n2 * 1.5;
+                        pos.z += n3 * 1.2;
+
+                        // Mouse influence (attraction/repulsion)
+                        vec3 mouseWorld = vec3(uMouse * 8.0, 0.0);
+                        vec3 toMouse = mouseWorld - pos;
+                        float mouseDist = length(toMouse);
+                        if (mouseDist < 6.0) {
+                            pos += normalize(toMouse) * (6.0 - mouseDist) * 0.08;
+                        }
 
                         vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-                        gl_PointSize = size * uPixelRatio * (260.0 / -mvPosition.z);
+                        gl_PointSize = size * uPixelRatio * (240.0 / -mvPosition.z);
                         gl_Position = projectionMatrix * mvPosition;
-                        vAlpha = 0.5 + sin(uTime * 0.7 + length(pos)) * 0.1;
+
+                        vAlpha = 0.45 + sin(uTime * 0.6 + length(pos)) * 0.12;
                     }
                 `,
                 fragmentShader: `
                     uniform vec3 uColor;
                     varying float vAlpha;
+
                     void main() {
                         float dist = length(gl_PointCoord - vec2(0.5));
                         float alpha = 1.0 - smoothstep(0.0, 0.5, dist);
-                        gl_FragColor = vec4(uColor, alpha * vAlpha);
+                        gl_FragColor = vec4(uColor, alpha * vAlpha * 0.9);
                     }
                 `,
                 transparent: true,
@@ -369,14 +416,25 @@
             const particles = new THREE.Points(geometry, material);
             scene.add(particles);
 
-            camera.position.z = 7;
+            camera.position.z = 7.5;
+
+            // Mouse tracking
+            const mouse = new THREE.Vector2();
+            window.addEventListener('mousemove', (event) => {
+                mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+                material.uniforms.uMouse.value.copy(mouse);
+            });
 
             let time = 0;
             function animate() {
                 requestAnimationFrame(animate);
                 time += 0.016;
                 material.uniforms.uTime.value = time;
-                particles.rotation.y = time * 0.012;
+
+                // Very subtle rotation
+                particles.rotation.y = time * 0.01;
+
                 renderer.render(scene, camera);
             }
             animate();
@@ -388,7 +446,9 @@
             });
         }
 
-        window.onload = () => initThreeJS();
+        window.onload = () => {
+            initThreeJS();
+        };
     </script>
 </body>
 </html>
