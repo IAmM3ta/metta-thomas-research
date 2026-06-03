@@ -44,9 +44,18 @@
 
         .tech-pill {
             font-size: 10px;
-            padding: 2px 8px;
+            padding: 1px 9px;
             background: rgba(255,255,255,0.06);
             border-radius: 9999px;
+            white-space: nowrap;
+        }
+
+        .skill-tag {
+            font-size: 10px;
+            padding: 2px 7px;
+            background: rgba(59, 130, 246, 0.1);
+            color: #60a5fa;
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -83,118 +92,132 @@
         <div class="max-w-2xl">
             <div class="text-xs font-mono tracking-[2.5px] text-blue-400 mb-3">INTERACTIVE WORK &amp; PLATFORM DEVELOPMENT</div>
             <h1 class="text-5xl font-semibold tracking-tighter heading-font">Projects</h1>
-            <p class="mt-4 text-lg text-zinc-400 max-w-md">
-                Production-ready interfaces and spatial computing experiments for the OPEV ecosystem.
+            <p class="mt-4 text-lg text-zinc-400">
+                Production interfaces and spatial computing work for the OPEV ecosystem.
             </p>
         </div>
     </div>
 
-    <!-- Projects Grid -->
-    <div class="max-w-screen-2xl mx-auto px-8 pb-20">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            
-            <!-- FloatMaps - Main Project -->
-            <div class="project-card group bg-zinc-900 border border-white/10 rounded-3xl overflow-hidden flex flex-col">
-                <div class="px-8 pt-8 pb-6">
-                    <div class="flex items-start justify-between">
-                        <div>
-                            <h3 class="font-semibold text-3xl tracking-tight">FloatMaps</h3>
-                            <p class="text-blue-400 text-sm mt-1">Core Platform • Community Spatial Layer for OPEV</p>
-                        </div>
-                        <div class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-medium rounded-2xl border border-emerald-500/20">
-                            Active Sprint
-                        </div>
+    <!-- Projects -->
+    <div class="max-w-screen-2xl mx-auto px-8 pb-20 space-y-8">
+        
+        <!-- FloatMaps -->
+        <div class="project-card bg-zinc-900 border border-white/10 rounded-3xl p-8">
+            <div class="flex flex-col lg:flex-row lg:items-start gap-8">
+                <div class="flex-1">
+                    <div class="flex items-center gap-x-3 mb-3">
+                        <h3 class="font-semibold text-3xl tracking-tight">FloatMaps</h3>
+                        <span class="px-3 py-0.5 text-xs font-medium bg-emerald-500/10 text-emerald-400 rounded-2xl border border-emerald-500/20">Active</span>
                     </div>
                     
-                    <p class="mt-4 text-[15px] text-zinc-300 leading-relaxed">
-                        Dynamic 3D globe to topo map platform with user dashboard, ride recording, GroupRide social features, WebXR route overlays, and haptic feedback.
+                    <p class="text-zinc-300 text-[15px] leading-relaxed max-w-2xl">
+                        The community spatial layer for OPEV. A production-grade mapping and social platform featuring dynamic 3D globe to topo transitions, ride recording, GroupRide coordination, WebXR overlays, and haptic feedback systems.
                     </p>
 
                     <div class="mt-5 flex flex-wrap gap-2">
                         <span class="tech-pill">TypeScript</span>
-                        <span class="tech-pill">WebGL / Three.js</span>
+                        <span class="tech-pill">Three.js / WebGL</span>
                         <span class="tech-pill">WebXR</span>
                         <span class="tech-pill">Cesium 3D Tiles</span>
                         <span class="tech-pill">Gaussian Splats</span>
-                        <span class="tech-pill">Haptics</span>
+                        <span class="tech-pill">Haptic Feedback</span>
+                    </div>
+
+                    <div class="mt-6">
+                        <div class="text-xs font-mono tracking-widest text-blue-400 mb-2">SKILLS DEMONSTRATED</div>
+                        <div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-zinc-300">
+                            <div>• Advanced WebGL &amp; shader development</div>
+                            <div>• Spatial computing &amp; WebXR</div>
+                            <div>• Real-time data visualization</div>
+                            <div>• Haptic &amp; multimodal interaction design</div>
+                            <div>• Production frontend architecture</div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="mt-auto border-t border-white/10 px-8 py-6 bg-zinc-950/50">
-                    <div class="flex items-center justify-between">
+                <div class="lg:w-72 flex-shrink-0 pt-2">
+                    <div class="space-y-3">
                         <a href="https://github.com/IAmM3ta/floatmaps" target="_blank"
-                           class="text-sm font-medium flex items-center gap-x-2 text-zinc-300 hover:text-white">
-                            View Source <i class="fa-brands fa-github"></i>
+                           class="flex items-center justify-center gap-x-2 w-full h-11 border border-white/20 hover:bg-white/5 rounded-2xl text-sm font-medium transition-all">
+                            <i class="fa-brands fa-github"></i>
+                            <span>View Repository</span>
                         </a>
-                        <button onclick="showFloatMapsDemo()" 
-                                class="px-6 h-10 bg-white text-zinc-950 text-sm font-semibold rounded-2xl hover:bg-white/90 transition-all flex items-center gap-x-2">
-                            Explore Live Demo
-                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                        
+                        <button onclick="showFloatMapsModal()" 
+                                class="flex items-center justify-center gap-x-2 w-full h-11 bg-white text-zinc-950 font-semibold rounded-2xl hover:bg-white/90 transition-all text-sm">
+                            Explore Sprint Highlights
                         </button>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- GLSL &amp; Spatial Shaders -->
-            <div class="project-card group bg-zinc-900 border border-white/10 rounded-3xl overflow-hidden flex flex-col">
-                <div class="px-8 pt-8 pb-6">
-                    <h3 class="font-semibold text-2xl tracking-tight">GLSL Shader Experiments</h3>
-                    <p class="text-sm text-zinc-400 mt-2">Custom fresnel + pulse beacon shaders, Gaussian splat proxies, and LOD-optimized rendering for large-scale spatial overlays.</p>
-                    
+        <!-- GLSL Shaders -->
+        <div class="project-card bg-zinc-900 border border-white/10 rounded-3xl p-8">
+            <div class="flex flex-col lg:flex-row lg:items-start gap-8">
+                <div class="flex-1">
+                    <h3 class="font-semibold text-2xl tracking-tight mb-2">GLSL Shader Experiments</h3>
+                    <p class="text-zinc-300 text-[15px] leading-relaxed">
+                        Custom real-time shaders including fresnel + pulse beacon effects, Gaussian splat proxies, and LOD-optimized rendering pipelines for large-scale spatial overlays in WebXR.
+                    </p>
+
                     <div class="mt-5 flex flex-wrap gap-2">
-                        <span class="tech-pill">GLSL</span>
-                        <span class="tech-pill">WebGL</span>
+                        <span class="tech-pill">GLSL / WGSL</span>
                         <span class="tech-pill">Three.js</span>
                         <span class="tech-pill">WebXR</span>
+                        <span class="tech-pill">Performance Optimization</span>
+                    </div>
+
+                    <div class="mt-5">
+                        <div class="text-xs font-mono tracking-widest text-blue-400 mb-2">SKILLS DEMONSTRATED</div>
+                        <div class="text-sm text-zinc-300">Advanced shader programming • Real-time rendering optimization • Spatial computing pipelines</div>
                     </div>
                 </div>
 
-                <div class="mt-auto border-t border-white/10 px-8 py-6 bg-zinc-950/50">
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="text-zinc-400">In active development</span>
-                        <span class="text-xs px-3 py-1 bg-white/5 rounded-2xl">View on GitHub</span>
-                    </div>
+                <div class="lg:w-72 flex-shrink-0 pt-2">
+                    <div class="text-sm text-zinc-400">In active development — tied to FloatMaps rendering stack.</div>
                 </div>
             </div>
-
         </div>
 
-        <!-- Note about extensibility -->
-        <div class="mt-8 text-xs text-zinc-500 max-w-md">
-            Additional interactive demos (physics simulations, advanced spatial computing experiments) will be added here as they reach showcase quality.
-        </div>
     </div>
 
-    <!-- FloatMaps Info Modal -->
-    <div id="floatmaps-modal" onclick="if (event.target.id === 'floatmaps-modal') hideFloatMapsDemo()" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-        <div onclick="event.stopImmediatePropagation()" class="bg-zinc-900 border border-white/10 rounded-3xl w-full max-w-3xl overflow-hidden">
-            <div class="px-8 py-6 border-b border-white/10 flex justify-between items-center">
+    <!-- FloatMaps Modal -->
+    <div id="floatmaps-modal" onclick="if (event.target.id === 'floatmaps-modal') hideModal()" class="hidden fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" class="bg-zinc-900 border border-white/10 rounded-3xl max-w-2xl w-full overflow-hidden">
+            <div class="px-8 py-6 border-b border-white/10 flex justify-between">
                 <div>
-                    <h3 class="font-semibold text-xl">FloatMaps Platform</h3>
-                    <p class="text-sm text-zinc-400">Recent Sprint Highlights (June 2026)</p>
+                    <h3 class="font-semibold">FloatMaps — June 2026 Sprint</h3>
+                    <p class="text-sm text-zinc-400">Key deliverables from recent development</p>
                 </div>
-                <button onclick="hideFloatMapsDemo()" class="text-2xl text-zinc-400 hover:text-white">&times;</button>
+                <button onclick="hideModal()" class="text-xl text-zinc-400 hover:text-white">&times;</button>
             </div>
 
-            <div class="p-8 space-y-6 text-sm">
-                <div>
-                    <div class="font-medium mb-2 text-blue-400">Core Features Delivered</div>
-                    <ul class="space-y-2 text-zinc-300">
-                        <li class="flex gap-x-3"><span class="text-emerald-400">•</span> Dynamic 3D globe → topo map transition</li>
-                        <li class="flex gap-x-3"><span class="text-emerald-400">•</span> User dashboard + ride recording/sharing</li>
-                        <li class="flex gap-x-3"><span class="text-emerald-400">•</span> GroupRide social features with permissions</li>
-                        <li class="flex gap-x-3"><span class="text-emerald-400">•</span> WebXR large-scale route overlays</li>
-                        <li class="flex gap-x-3"><span class="text-emerald-400">•</span> Bidirectional social ping + haptic feedback</li>
-                        <li class="flex gap-x-3"><span class="text-emerald-400">•</span> Custom fresnel + pulse beacon shaders</li>
-                        <li class="flex gap-x-3"><span class="text-emerald-400">•</span> Gaussian splat proxy rendering + Cesium 3D Tiles integration</li>
-                    </ul>
+            <div class="p-8 text-sm space-y-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                    <div>
+                        <div class="font-medium text-blue-400 mb-2">Platform Features</div>
+                        <ul class="space-y-1.5 text-zinc-300">
+                            <li>• Dynamic 3D globe → topo map</li>
+                            <li>• Ride recording &amp; sharing</li>
+                            <li>• GroupRide coordination</li>
+                            <li>• Permissions &amp; social features</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="font-medium text-blue-400 mb-2">Advanced Rendering</div>
+                        <ul class="space-y-1.5 text-zinc-300">
+                            <li>• WebXR large-scale route overlays</li>
+                            <li>• Gaussian splat proxy rendering</li>
+                            <li>• Cesium 3D Tiles integration</li>
+                            <li>• Custom fresnel + pulse shaders</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="pt-4 border-t border-white/10">
-                    <a href="https://github.com/IAmM3ta/floatmaps" target="_blank" 
-                       class="inline-flex items-center gap-x-2 text-blue-400 hover:text-blue-300 font-medium">
-                        View full source and development thread on GitHub 
-                        <i class="fa-brands fa-github"></i>
+                    <a href="https://github.com/IAmM3ta/floatmaps" target="_blank" class="inline-flex items-center gap-x-2 text-blue-400 hover:text-blue-300">
+                        View full development thread and source →
                     </a>
                 </div>
             </div>
@@ -202,7 +225,7 @@
     </div>
 
     <footer class="border-t border-white/10 py-8">
-        <div class="max-w-screen-2xl mx-auto px-8 text-sm text-zinc-500 flex justify-between">
+        <div class="max-w-screen-2xl mx-auto px-8 flex justify-between text-sm text-zinc-500">
             <div>
                 © 2025–2026 Robert F. Thomas
             </div>
@@ -211,12 +234,11 @@
     </footer>
 
     <script>
-        function showFloatMapsDemo() {
+        function showFloatMapsModal() {
             document.getElementById('floatmaps-modal').classList.remove('hidden');
             document.getElementById('floatmaps-modal').classList.add('flex');
         }
-
-        function hideFloatMapsDemo() {
+        function hideModal() {
             const modal = document.getElementById('floatmaps-modal');
             modal.classList.remove('flex');
             modal.classList.add('hidden');
