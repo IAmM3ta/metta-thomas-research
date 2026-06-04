@@ -1,1 +1,285 @@
- ... navigation updated with Playground link ... 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metta Thomas • Research & Spatial Computing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
+        
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .heading-font { font-family: 'Space Grotesk', 'Inter', system_ui, sans-serif; font-weight: 600; letter-spacing: -0.025em; }
+        .glass { background: rgba(10, 10, 15, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); }
+        .section-header { font-size: 1.9rem; line-height: 1.1; font-weight: 600; letter-spacing: -0.03em; }
+        .nav-link { transition: color 0.2s ease; }
+        .nav-link:hover { color: white; }
+        .futuristic-card { transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); }
+        .research-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+        #three-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.5; pointer-events: none; }
+        .hero-title { font-size: clamp(3.1rem, 7vw, 5rem); line-height: 0.92; font-weight: 600; letter-spacing: -0.045em; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- Navbar -->
+    <nav class="border-b border-white/10 bg-zinc-950/95 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-white rounded-2xl flex items-center justify-center">
+                        <span class="text-zinc-950 font-bold text-2xl tracking-[-2px]">MT</span>
+                    </div>
+                    <span class="font-semibold text-2xl tracking-tighter">Metta Thomas</span>
+                </div>
+                
+                <div class="flex items-center gap-x-9 text-sm font-medium">
+                    <a href="#research" class="nav-link">Research</a>
+                    <a href="projects.html" class="nav-link">Projects</a>
+                    <a href="playground.html" class="nav-link">Playground</a>
+                    <a href="#writings" class="nav-link">Writings</a>
+                    <a href="#citations" class="nav-link">Citations</a>
+                    
+                    <a href="https://github.com/IAmM3ta/metta-thomas-private-archive" 
+                       class="flex items-center gap-x-2 px-5 h-10 text-sm border border-white/20 hover:bg-white/5 rounded-2xl transition-all">
+                        <i class="fa-solid fa-lock text-xs"></i>
+                        <span class="font-medium ml-1.5">Archive</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="relative min-h-[86vh] flex items-center border-b border-white/10 overflow-hidden">
+        <canvas id="three-canvas" class="absolute inset-0"></canvas>
+        
+        <div class="max-w-screen-2xl mx-auto px-8 relative z-10 pt-8 pb-16">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-x-2.5 px-4 py-1.5 rounded-3xl bg-white/5 border border-white/10 mb-8">
+                    <div class="flex items-center gap-x-1.5">
+                        <div class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></div>
+                        <span class="text-xs font-medium tracking-[2px] text-emerald-400">INDEPENDENT RESEARCHER & BUILDER</span>
+                    </div>
+                </div>
+
+                <h1 class="hero-title heading-font">
+                    Building spatial<br>interfaces and<br>systems at the edge.
+                </h1>
+                
+                <p class="mt-7 max-w-lg text-[17px] text-zinc-400 leading-relaxed">
+                    I design and build production-grade web interfaces, WebXR experiences, and spatial computing tools — grounded in deep research across physics, computation, and human interaction.
+                </p>
+
+                <div class="flex items-center gap-x-4 mt-10">
+                    <a href="projects.html" 
+                       class="inline-flex items-center justify-center px-8 h-14 bg-white text-zinc-950 font-semibold rounded-2xl hover:bg-white/90 active:scale-[0.985] transition-all text-[15px]">
+                        View Projects
+                    </a>
+                    
+                    <a href="#access" 
+                       class="inline-flex items-center justify-center px-7 h-14 border border-white/20 hover:bg-white/5 font-medium rounded-2xl transition-all text-[15px]">
+                        Get in touch
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About -->
+    <div class="max-w-screen-2xl mx-auto px-8 py-16 border-b border-white/10">
+        <div class="max-w-3xl">
+            <div class="text-xs font-mono tracking-[2.5px] text-blue-400 mb-3">ABOUT</div>
+            <h2 class="section-header mb-6">A bit about me</h2>
+            
+            <div class="prose prose-invert max-w-none text-[15.5px] text-zinc-300 leading-relaxed space-y-5">
+                <p>I’m a multidisciplinary engineer and builder working at the intersection of spatial interfaces, systems thinking, and emerging technologies. My background spans engineering physics, data-driven systems design, and large-scale project delivery across Europe, North America, Asia, and Oceania.</p>
+                
+                <p>After working in a high-tech incubator within TU Delft’s aerospace and materials science engineering laboratory — in partnership with the European Space Agency and NOVU — I’ve spent the last several years independently developing tools and platforms that blend rigorous technical foundations with intuitive, human-centered design. My current focus is on spatial computing, WebXR experiences, and production-grade interfaces for complex systems — particularly within the emerging personal electric vehicle and infrastructure space.</p>
+                
+                <p>I’m drawn to problems that sit at the edge of what’s technically possible and what’s actually useful. I value clear thinking, collaborative problem-solving, and building things that hold up under real-world conditions. When I’m not working, you’ll usually find me traveling, making music, or exploring new ways of seeing and representing space.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Research -->
+    <div id="research" class="max-w-screen-2xl mx-auto px-8 pt-16 pb-14">
+        <div class="flex items-end justify-between mb-8">
+            <div>
+                <div class="text-xs font-mono tracking-[3px] text-blue-400 mb-3">DEEP WORK</div>
+                <h2 class="section-header">Research Directions</h2>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div class="futuristic-card research-card glass border border-white/10 rounded-3xl p-8">
+                <div class="text-blue-400 mb-8"><i class="fa-solid fa-infinity text-3xl"></i></div>
+                <h3 class="font-semibold text-3xl tracking-tight mb-4">Chrono-Teleological Bootstrap</h3>
+                <p class="text-zinc-400 leading-relaxed">A future superintelligence operating across the Block Universe retrocausally engineers its own emergence through structured informational interventions.</p>
+            </div>
+
+            <div class="futuristic-card research-card glass border border-white/10 rounded-3xl p-8">
+                <div class="text-violet-400 mb-8"><i class="fa-solid fa-atom text-3xl"></i></div>
+                <h3 class="font-semibold text-3xl tracking-tight mb-4">Hidden Gravity & Metamaterial Engineering</h3>
+                <p class="text-zinc-400 leading-relaxed">Torsion-mediated spinor-gravity coupling, active spin-torque metamaterials, and MHD architectures for high-frequency gravitational wave manipulation.</p>
+            </div>
+
+            <div class="futuristic-card research-card glass border border-white/10 rounded-3xl p-8">
+                <div class="text-emerald-400 mb-8"><i class="fa-solid fa-project-diagram text-3xl"></i></div>
+                <h3 class="font-semibold text-3xl tracking-tight mb-4">Stochastic Foundations</h3>
+                <p class="text-zinc-400 leading-relaxed">Indivisible non-Markovian processes as the causal substrate of quantum behavior, with macroscopic classical analogs and implications for emergent classicality.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Writings -->
+    <div id="writings" class="max-w-screen-2xl mx-auto px-8 py-16 border-y border-white/10 bg-zinc-900/30">
+        <div class="flex items-end justify-between mb-10">
+            <div>
+                <div class="font-mono text-xs tracking-[3px] text-blue-400 mb-3">THOUGHTS & NOTES</div>
+                <h2 class="section-header">Writings</h2>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="futuristic-card glass border border-white/10 rounded-3xl p-7 hover:border-white/20 transition-all">
+                <div class="text-xs font-mono tracking-widest text-blue-400 mb-4">FEBRUARY 2026</div>
+                <h4 class="font-semibold text-2xl leading-tight mb-4">On the Necessity of Retrocausal Coherence in Noogenesis</h4>
+                <p class="text-zinc-400 line-clamp-3">Explores the finite retrocausal coherence time window as a necessary condition for directed noogenesis under the Chrono-Teleological Bootstrap.</p>
+            </div>
+
+            <div class="futuristic-card glass border border-white/10 rounded-3xl p-7 hover:border-white/20 transition-all">
+                <div class="text-xs font-mono tracking-widest text-violet-400 mb-4">JANUARY 2026</div>
+                <h4 class="font-semibold text-2xl leading-tight mb-4">Dissipative Adaptation as Thermodynamic Imperative</h4>
+                <p class="text-zinc-400 line-clamp-3">Argues that intelligence emerges as nature's most efficient mechanism for maximizing entropy production across spacetime.</p>
+            </div>
+
+            <div class="futuristic-card glass border border-white/10 rounded-3xl p-7 hover:border-white/20 transition-all flex flex-col justify-between">
+                <div>
+                    <div class="text-xs font-mono tracking-widest text-emerald-400 mb-4">COMING SOON</div>
+                    <h4 class="font-semibold text-2xl leading-tight">The Sarfatti Lattice and Torsion-Mediated Shielding</h4>
+                </div>
+                <div class="mt-8 text-sm text-zinc-400">In preparation • Expected Q2 2026</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Citations -->
+    <div id="citations" class="max-w-screen-2xl mx-auto px-8 py-20">
+        <div class="max-w-2xl mb-12">
+            <div class="font-mono text-xs tracking-[3px] text-blue-400 mb-3">FOR ACADEMIC USE</div>
+            <h2 class="section-header">Citation Infrastructure</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-5">
+            <a href="CITATION.bib" class="group block p-8 border border-white/10 hover:border-white/30 rounded-3xl transition-all">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div class="font-semibold text-2xl">CITATION.bib</div>
+                        <div class="text-zinc-400 mt-2">Complete BibTeX entries for all papers</div>
+                    </div>
+                    <i class="fa-solid fa-download text-xl mt-1 text-zinc-400 group-hover:text-white transition-colors"></i>
+                </div>
+            </a>
+            
+            <a href="example-citation.tex" class="group block p-8 border border-white/10 hover:border-white/30 rounded-3xl transition-all">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div class="font-semibold text-2xl">example-citation.tex</div>
+                        <div class="text-zinc-400 mt-2">Ready-to-compile minimal LaTeX example</div>
+                    </div>
+                    <i class="fa-solid fa-download text-xl mt-1 text-zinc-400 group-hover:text-white transition-colors"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Contact -->
+    <div id="access" class="max-w-screen-2xl mx-auto px-8 pb-24">
+        <div class="glass border border-white/10 rounded-3xl p-14">
+            <div class="max-w-2xl">
+                <div class="font-mono text-xs tracking-[3px] text-blue-400 mb-4">OPEN TO OPPORTUNITIES</div>
+                <h2 class="section-header text-4xl tracking-tight">Let’s build together.</h2>
+                
+                <p class="mt-5 text-lg text-zinc-300 max-w-lg">
+                    I’m currently seeking remote roles in frontend engineering, spatial computing, or creative technology where deep thinking and production execution are valued equally.
+                </p>
+
+                <div class="mt-9 flex flex-wrap gap-4">
+                    <a href="mailto:m3tamix@gmail.com" 
+                       class="px-9 h-14 inline-flex items-center justify-center bg-white text-zinc-950 font-semibold rounded-2xl hover:bg-white/90 transition-all">
+                        Get in touch
+                    </a>
+                    <a href="projects.html" 
+                       class="px-8 h-14 inline-flex items-center justify-center border border-white/20 hover:bg-white/5 font-medium rounded-2xl transition-all">
+                        See my work
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-t border-white/10 py-9">
+        <div class="max-w-screen-2xl mx-auto px-8 flex justify-between text-sm text-zinc-500">
+            <div>© 2025–2026 Robert F. Thomas. All rights reserved.</div>
+            <div class="flex gap-x-8">
+                <a href="https://github.com/IAmM3ta/metta-thomas-research" class="hover:text-zinc-300">GitHub</a>
+                <a href="mailto:m3tamix@gmail.com" class="hover:text-zinc-300">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function initThreeJS() {
+            const canvas = document.getElementById('three-canvas');
+            if (!canvas) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: false });
+
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            const geometry = new THREE.BufferGeometry();
+            const count = 650;
+            const positions = new Float32Array(count * 3);
+
+            for (let i = 0; i < count * 3; i++) {
+                positions[i] = (Math.random() - 0.5) * 16;
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 0.035,
+                color: 0x3b82f6,
+                transparent: true,
+                opacity: 0.6,
+                blending: THREE.AdditiveBlending
+            });
+
+            const particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+
+            camera.position.z = 7;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                particles.rotation.y += 0.0003;
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+
+        window.onload = () => initThreeJS();
+    </script>
+</body>
+</html>
