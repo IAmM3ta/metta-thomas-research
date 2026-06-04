@@ -112,7 +112,7 @@
             <div class="px-8 py-5 border-b border-white/10 flex items-center justify-between">
                 <div>
                     <h3 class="font-semibold text-xl">FloatMaps — Platform Experience Demo</h3>
-                    <p class="text-sm text-zinc-400">Map ↔ Splat Spatial ↔ Street View • Social Beacons • Group Coordination</p>
+                    <p class="text-sm text-zinc-400">Map View ↔ Street View • Social Beacons • Group Rides</p>
                 </div>
                 <button onclick="hideAdvancedDemo()" class="text-zinc-400 hover:text-white text-2xl">&times;</button>
             </div>
@@ -121,11 +121,10 @@
             <div class="px-8 pt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
                 <div class="flex items-center bg-zinc-800 rounded-2xl p-1">
                     <button id="btn-map-view" onclick="switchToMapView()" class="view-toggle active px-4 py-1.5 text-sm font-medium rounded-2xl">Map</button>
-                    <button id="btn-splat-view" onclick="switchToSplatView()" class="view-toggle px-4 py-1.5 text-sm font-medium rounded-2xl">Splat</button>
-                    <button id="btn-street-view" onclick="enterStreetView()" class="view-toggle px-4 py-1.5 text-sm font-medium rounded-2xl">Street</button>
+                    <button id="btn-street-view" onclick="switchToStreetView()" class="view-toggle px-4 py-1.5 text-sm font-medium rounded-2xl">Street View</button>
                 </div>
                 
-                <!-- Group Ride button - only visible in Splat view -->
+                <!-- Group Ride button - only visible in Street View -->
                 <button id="btn-group-ride" onclick="triggerGroupRide()" 
                         class="hidden platform-action px-4 py-1.5 text-sm bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 rounded-2xl font-medium flex items-center gap-x-2">
                     <i class="fa-solid fa-users"></i>
@@ -173,7 +172,7 @@
         let groupRiders = [];
         let isDragging = false;
         let prevX = 0, prevY = 0;
-        let isStreetView = false;
+        let isStreetViewMode = false;
 
         function initTheme() {
             const toggleBtn = document.getElementById('theme-toggle');
@@ -227,7 +226,7 @@
             beacons = [];
             routeLine = null;
             groupRiders = [];
-            isStreetView = false;
+            isStreetViewMode = false;
             const streetControls = document.getElementById('street-controls');
             const groupBtn = document.getElementById('btn-group-ride');
             if (streetControls) streetControls.classList.add('hidden');
@@ -258,8 +257,8 @@
 
             function animate() {
                 requestAnimationFrame(animate);
-                if (currentView === 'splat' && scene && !isStreetView) {
-                    scene.rotation.y += 0.0004;
+                if (currentView === 'street' && scene && isStreetViewMode) {
+                    // Gentle auto-rotation only in overview street view
                 }
                 renderer.render(scene, camera);
             }
@@ -299,7 +298,7 @@
                 camera.position.z = Math.max(3.5, Math.min(26, camera.position.z + e.deltaY * 0.018));
             });
 
-            // Touch controls
+            // Touch controls (improved)
             let lastTouchX = 0, lastTouchY = 0;
             let initialDistance = 0;
 
@@ -338,7 +337,7 @@
 
             // Click / Tap beacons
             canvas.addEventListener('click', (e) => {
-                if (currentView !== 'splat' || isStreetView) return;
+                if (!isStreetViewMode) return;
 
                 const rect = canvas.getBoundingClientRect();
                 const mouse = new THREE.Vector2();
@@ -383,14 +382,15 @@
             });
 
             currentView = 'map';
-            isStreetView = false;
+            isStreetViewMode = false;
             updateUI();
         }
 
-        function createSplatView() {
+        function createStreetView() {
             clearScene();
 
-            const count = 480;
+            // High-quality spatial / splat-style rendering
+            const count = 520;
             const pos = new Float32Array(count * 3);
             const col = new Float32Array(count * 3);
 
@@ -410,7 +410,7 @@
             geometry.setAttribute('color', new THREE.BufferAttribute(col, 3));
 
             const material = new THREE.PointsMaterial({
-                size: 0.12,
+                size: 0.13,
                 vertexColors: true,
                 transparent: true,
                 opacity: 0.9,
@@ -442,41 +442,40 @@
                 beacons.push(b);
             });
 
-            currentView = 'splat';
-            isStreetView = false;
+            currentView = 'street';
+            isStreetViewMode = true;
             updateUI();
+        }
+
+        function switchToMapView() {
+            if (currentView === 'map') return;
+            createMapView();
+        }
+
+        function switchToStreetView() {
+            if (currentView === 'street') return;
+            createStreetView();
         }
 
         function enterStreetView() {
-            if (!camera || isStreetView) return;
-
-            isStreetView = true;
-            currentView = 'street';
-
-            camera.position.set(0, 1.65, 7);
-            camera.lookAt(0, 1.55, 0);
-
-            document.getElementById('street-controls').classList.remove('hidden');
-            const groupBtn = document.getElementById('btn-group-ride');
-            if (groupBtn) groupBtn.classList.add('hidden');
-            updateUI();
+            switchToStreetView();
         }
 
         function exitStreetView() {
-            isStreetView = false;
+            isStreetViewMode = false;
             document.getElementById('street-controls').classList.add('hidden');
-            createSplatView();
+            createMapView();
         }
 
         function moveForward() {
-            if (!camera || !isStreetView) return;
+            if (!camera || !isStreetViewMode) return;
             const dir = new THREE.Vector3();
             camera.getWorldDirection(dir);
             camera.position.addScaledVector(dir, 0.85);
         }
 
         function moveBackward() {
-            if (!camera || !isStreetView) return;
+            if (!camera || !isStreetViewMode) return;
             const dir = new THREE.Vector3();
             camera.getWorldDirection(dir);
             camera.position.addScaledVector(dir, -0.85);
@@ -512,40 +511,32 @@
 
         function updateUI() {
             const mapBtn = document.getElementById('btn-map-view');
-            const splatBtn = document.getElementById('btn-splat-view');
             const streetBtn = document.getElementById('btn-street-view');
             const groupBtn = document.getElementById('btn-group-ride');
 
-            if (!mapBtn || !splatBtn || !streetBtn) return;
+            if (!mapBtn || !streetBtn) return;
 
             mapBtn.classList.remove('active', 'bg-blue-600', 'text-white');
-            splatBtn.classList.remove('active', 'bg-blue-600', 'text-white');
             streetBtn.classList.remove('active', 'bg-blue-600', 'text-white');
 
             if (currentView === 'map') {
                 mapBtn.classList.add('active', 'bg-blue-600', 'text-white');
                 if (groupBtn) groupBtn.classList.add('hidden');
-            } else if (currentView === 'splat') {
-                splatBtn.classList.add('active', 'bg-blue-600', 'text-white');
-                if (groupBtn) groupBtn.classList.remove('hidden');
             } else if (currentView === 'street') {
                 streetBtn.classList.add('active', 'bg-blue-600', 'text-white');
-                if (groupBtn) groupBtn.classList.add('hidden');
+                if (groupBtn) groupBtn.classList.remove('hidden');
             }
         }
 
-        // Group Ride - only works in Splat view
         function triggerGroupRide() {
-            if (!scene || currentView !== 'splat') {
-                // Safety fallback - switch to splat view
-                switchToSplatView();
+            if (!scene || currentView !== 'street') {
+                switchToStreetView();
                 setTimeout(() => {
-                    if (currentView === 'splat') triggerGroupRide();
-                }, 150);
+                    if (currentView === 'street') triggerGroupRide();
+                }, 120);
                 return;
             }
 
-            // Clear existing group riders
             groupRiders.forEach(r => scene.remove(r));
             groupRiders = [];
 
@@ -561,7 +552,6 @@
                 groupRiders.push(rider);
             });
 
-            // Visual confirmation
             const msg = document.createElement('div');
             msg.className = 'fixed bottom-8 left-1/2 -translate-x-1/2 bg-emerald-600 text-white px-5 py-2 rounded-2xl text-sm shadow-lg z-[200]';
             msg.textContent = 'Group Ride started — 3 riders joined';
@@ -602,40 +592,6 @@
             group.userData = { type: 'groupRider', id };
 
             return group;
-        }
-
-        function switchToMapView() {
-            if (currentView === 'map') return;
-            createMapView();
-        }
-
-        function switchToSplatView() {
-            if (currentView === 'splat') return;
-            createSplatView();
-        }
-
-        function updateUI() {
-            const mapBtn = document.getElementById('btn-map-view');
-            const splatBtn = document.getElementById('btn-splat-view');
-            const streetBtn = document.getElementById('btn-street-view');
-            const groupBtn = document.getElementById('btn-group-ride');
-
-            if (!mapBtn || !splatBtn || !streetBtn) return;
-
-            mapBtn.classList.remove('active', 'bg-blue-600', 'text-white');
-            splatBtn.classList.remove('active', 'bg-blue-600', 'text-white');
-            streetBtn.classList.remove('active', 'bg-blue-600', 'text-white');
-
-            if (currentView === 'map') {
-                mapBtn.classList.add('active', 'bg-blue-600', 'text-white');
-                if (groupBtn) groupBtn.classList.add('hidden');
-            } else if (currentView === 'splat') {
-                splatBtn.classList.add('active', 'bg-blue-600', 'text-white');
-                if (groupBtn) groupBtn.classList.remove('hidden');
-            } else if (currentView === 'street') {
-                streetBtn.classList.add('active', 'bg-blue-600', 'text-white');
-                if (groupBtn) groupBtn.classList.add('hidden');
-            }
         }
 
         function triggerSocialPing(beacon) {
