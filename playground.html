@@ -125,13 +125,12 @@
                     <button id="btn-street-view" onclick="enterStreetView()" class="view-toggle px-4 py-1.5 text-sm font-medium rounded-2xl">Street</button>
                 </div>
                 
-                <div id="platform-actions" class="flex items-center gap-x-2">
-                    <button onclick="triggerGroupRide()" 
-                            class="platform-action px-4 py-1.5 text-sm bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 rounded-2xl font-medium flex items-center gap-x-2">
-                        <i class="fa-solid fa-users"></i>
-                        <span>Start Group Ride</span>
-                    </button>
-                </div>
+                <!-- Group Ride button - only visible in Splat view -->
+                <button id="btn-group-ride" onclick="triggerGroupRide()" 
+                        class="hidden platform-action px-4 py-1.5 text-sm bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 rounded-2xl font-medium flex items-center gap-x-2">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Start Group Ride</span>
+                </button>
 
                 <div id="street-controls" class="hidden items-center gap-x-2">
                     <button onclick="moveForward()" class="control-btn px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-xl text-sm flex items-center gap-x-1">
@@ -140,7 +139,7 @@
                     <button onclick="moveBackward()" class="control-btn px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-xl text-sm flex items-center gap-x-1">
                         <i class="fa-solid fa-arrow-down"></i> <span>Back</span>
                     </button>
-                    <button onclick="exitStreetView()" class="control-btn px-3 py-1.5 bg-red-900/70 hover:bg-red-900 rounded-xl text-sm">Exit Street View</button>
+                    <button onclick="exitStreetView()" class="control-btn px-3 py-1.5 bg-red-900/70 hover:bg-red-900 rounded-xl text-sm">Exit</button>
                 </div>
 
                 <div class="text-xs text-zinc-400">Drag to orbit • Tap beacons to ping friends</div>
@@ -229,8 +228,10 @@
             routeLine = null;
             groupRiders = [];
             isStreetView = false;
-            document.getElementById('street-controls').classList.add('hidden');
-            document.getElementById('platform-actions').classList.remove('hidden');
+            const streetControls = document.getElementById('street-controls');
+            const groupBtn = document.getElementById('btn-group-ride');
+            if (streetControls) streetControls.classList.add('hidden');
+            if (groupBtn) groupBtn.classList.add('hidden');
         }
 
         function initSpatialDemo() {
@@ -456,14 +457,14 @@
             camera.lookAt(0, 1.55, 0);
 
             document.getElementById('street-controls').classList.remove('hidden');
-            document.getElementById('platform-actions').classList.add('hidden');
+            const groupBtn = document.getElementById('btn-group-ride');
+            if (groupBtn) groupBtn.classList.add('hidden');
             updateUI();
         }
 
         function exitStreetView() {
             isStreetView = false;
             document.getElementById('street-controls').classList.add('hidden');
-            document.getElementById('platform-actions').classList.remove('hidden');
             createSplatView();
         }
 
@@ -513,6 +514,7 @@
             const mapBtn = document.getElementById('btn-map-view');
             const splatBtn = document.getElementById('btn-splat-view');
             const streetBtn = document.getElementById('btn-street-view');
+            const groupBtn = document.getElementById('btn-group-ride');
 
             if (!mapBtn || !splatBtn || !streetBtn) return;
 
@@ -520,17 +522,126 @@
             splatBtn.classList.remove('active', 'bg-blue-600', 'text-white');
             streetBtn.classList.remove('active', 'bg-blue-600', 'text-white');
 
-            if (currentView === 'map') mapBtn.classList.add('active', 'bg-blue-600', 'text-white');
-            else if (currentView === 'splat') splatBtn.classList.add('active', 'bg-blue-600', 'text-white');
-            else if (currentView === 'street') streetBtn.classList.add('active', 'bg-blue-600', 'text-white');
+            if (currentView === 'map') {
+                mapBtn.classList.add('active', 'bg-blue-600', 'text-white');
+                if (groupBtn) groupBtn.classList.add('hidden');
+            } else if (currentView === 'splat') {
+                splatBtn.classList.add('active', 'bg-blue-600', 'text-white');
+                if (groupBtn) groupBtn.classList.remove('hidden');
+            } else if (currentView === 'street') {
+                streetBtn.classList.add('active', 'bg-blue-600', 'text-white');
+                if (groupBtn) groupBtn.classList.add('hidden');
+            }
         }
 
-        // Enhanced social ping with visual feedback
+        // Group Ride - only works in Splat view
+        function triggerGroupRide() {
+            if (!scene || currentView !== 'splat') {
+                // Safety fallback - switch to splat view
+                switchToSplatView();
+                setTimeout(() => {
+                    if (currentView === 'splat') triggerGroupRide();
+                }, 150);
+                return;
+            }
+
+            // Clear existing group riders
+            groupRiders.forEach(r => scene.remove(r));
+            groupRiders = [];
+
+            const riderPositions = [
+                { x: -2.5, y: 2.5, z: -2 },
+                { x: 1.5, y: 2.8, z: 1.5 },
+                { x: 5, y: 3.1, z: 4 }
+            ];
+
+            riderPositions.forEach((pos, i) => {
+                const rider = createGroupRider(pos.x, pos.y, pos.z, i);
+                scene.add(rider);
+                groupRiders.push(rider);
+            });
+
+            // Visual confirmation
+            const msg = document.createElement('div');
+            msg.className = 'fixed bottom-8 left-1/2 -translate-x-1/2 bg-emerald-600 text-white px-5 py-2 rounded-2xl text-sm shadow-lg z-[200]';
+            msg.textContent = 'Group Ride started — 3 riders joined';
+            document.body.appendChild(msg);
+
+            setTimeout(() => {
+                msg.style.transition = 'all 0.3s ease';
+                msg.style.opacity = '0';
+                setTimeout(() => msg.remove(), 200);
+            }, 2200);
+        }
+
+        function createGroupRider(x, y, z, id) {
+            const group = new THREE.Group();
+
+            const body = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.12, 0.12, 0.6, 8),
+                new THREE.MeshPhongMaterial({ color: 0x64748b })
+            );
+            body.position.y = 0.3;
+            group.add(body);
+
+            const head = new THREE.Mesh(
+                new THREE.SphereGeometry(0.15, 12, 12),
+                new THREE.MeshPhongMaterial({ color: 0x94a3b8 })
+            );
+            head.position.y = 0.75;
+            group.add(head);
+
+            const riderBeacon = new THREE.Mesh(
+                new THREE.SphereGeometry(0.08, 8, 8),
+                new THREE.MeshPhongMaterial({ color: 0x10b981, emissive: 0x064e3b })
+            );
+            riderBeacon.position.y = 0.95;
+            group.add(riderBeacon);
+
+            group.position.set(x, y, z);
+            group.userData = { type: 'groupRider', id };
+
+            return group;
+        }
+
+        function switchToMapView() {
+            if (currentView === 'map') return;
+            createMapView();
+        }
+
+        function switchToSplatView() {
+            if (currentView === 'splat') return;
+            createSplatView();
+        }
+
+        function updateUI() {
+            const mapBtn = document.getElementById('btn-map-view');
+            const splatBtn = document.getElementById('btn-splat-view');
+            const streetBtn = document.getElementById('btn-street-view');
+            const groupBtn = document.getElementById('btn-group-ride');
+
+            if (!mapBtn || !splatBtn || !streetBtn) return;
+
+            mapBtn.classList.remove('active', 'bg-blue-600', 'text-white');
+            splatBtn.classList.remove('active', 'bg-blue-600', 'text-white');
+            streetBtn.classList.remove('active', 'bg-blue-600', 'text-white');
+
+            if (currentView === 'map') {
+                mapBtn.classList.add('active', 'bg-blue-600', 'text-white');
+                if (groupBtn) groupBtn.classList.add('hidden');
+            } else if (currentView === 'splat') {
+                splatBtn.classList.add('active', 'bg-blue-600', 'text-white');
+                if (groupBtn) groupBtn.classList.remove('hidden');
+            } else if (currentView === 'street') {
+                streetBtn.classList.add('active', 'bg-blue-600', 'text-white');
+                if (groupBtn) groupBtn.classList.add('hidden');
+            }
+        }
+
         function triggerSocialPing(beacon) {
             if (!beacon.userData.ring) return;
             const ring = beacon.userData.ring;
 
-            // Ping animation
             let s = 1;
             const interval = setInterval(() => {
                 s += 0.15;
@@ -544,12 +655,10 @@
                 }
             }, 28);
 
-            // Simple social feedback (temporary rider indicator)
             showPingFeedback(beacon.position);
         }
 
         function showPingFeedback(position) {
-            // Create a temporary "message sent" visual
             const geo = new THREE.SphereGeometry(0.12, 12, 12);
             const mat = new THREE.MeshBasicMaterial({ color: 0x60a5fa, transparent: true, opacity: 0.9 });
             const ping = new THREE.Mesh(geo, mat);
@@ -568,91 +677,6 @@
                     scene.remove(ping);
                 }
             }, 50);
-        }
-
-        // Group Ride feature
-        function triggerGroupRide() {
-            if (!scene || currentView !== 'splat') {
-                alert('Start a Group Ride from Splat Spatial View for best effect.');
-                return;
-            }
-
-            // Clear existing group riders
-            groupRiders.forEach(r => scene.remove(r));
-            groupRiders = [];
-
-            // Create 3 additional riders along the route
-            const riderPositions = [
-                { x: -2.5, y: 2.5, z: -2 },
-                { x: 1.5, y: 2.8, z: 1.5 },
-                { x: 5, y: 3.1, z: 4 }
-            ];
-
-            riderPositions.forEach((pos, i) => {
-                const rider = createGroupRider(pos.x, pos.y, pos.z, i);
-                scene.add(rider);
-                groupRiders.push(rider);
-            });
-
-            // Brief visual confirmation
-            const msg = document.createElement('div');
-            msg.className = 'fixed bottom-8 left-1/2 -translate-x-1/2 bg-emerald-600 text-white px-5 py-2 rounded-2xl text-sm shadow-lg';
-            msg.textContent = 'Group Ride started — 3 riders joined';
-            document.body.appendChild(msg);
-
-            setTimeout(() => {
-                msg.style.transition = 'all 0.3s ease';
-                msg.style.opacity = '0';
-                setTimeout(() => msg.remove(), 200);
-            }, 2200);
-        }
-
-        function createGroupRider(x, y, z, id) {
-            const group = new THREE.Group();
-
-            // Rider body (simple cylinder + sphere)
-            const body = new THREE.Mesh(
-                new THREE.CylinderGeometry(0.12, 0.12, 0.6, 8),
-                new THREE.MeshPhongMaterial({ color: 0x64748b })
-            );
-            body.position.y = 0.3;
-            group.add(body);
-
-            const head = new THREE.Mesh(
-                new THREE.SphereGeometry(0.15, 12, 12),
-                new THREE.MeshPhongMaterial({ color: 0x94a3b8 })
-            );
-            head.position.y = 0.75;
-            group.add(head);
-
-            // Small beacon on rider
-            const riderBeacon = new THREE.Mesh(
-                new THREE.SphereGeometry(0.08, 8, 8),
-                new THREE.MeshPhongMaterial({ color: 0x10b981, emissive: 0x064e3b })
-            );
-            riderBeacon.position.y = 0.95;
-            group.add(riderBeacon);
-
-            group.position.set(x, y, z);
-            group.userData = { type: 'groupRider', id };
-
-            return group;
-        }
-
-        function updateUI() {
-            const mapBtn = document.getElementById('btn-map-view');
-            const splatBtn = document.getElementById('btn-splat-view');
-            const streetBtn = document.getElementById('btn-street-view');
-
-            if (!mapBtn || !splatBtn || !streetBtn) return;
-
-            mapBtn.classList.remove('active', 'bg-blue-600', 'text-white');
-            splatBtn.classList.remove('active', 'bg-blue-600', 'text-white');
-            streetBtn.classList.remove('active', 'bg-blue-600', 'text-white');
-
-            if (currentView === 'map') mapBtn.classList.add('active', 'bg-blue-600', 'text-white');
-            else if (currentView === 'splat') splatBtn.classList.add('active', 'bg-blue-600', 'text-white');
-            else if (currentView === 'street') streetBtn.classList.add('active', 'bg-blue-600', 'text-white');
         }
 
         function initTheme() { /* ... */ }
