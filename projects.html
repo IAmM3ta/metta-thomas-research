@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
         
         body { font-family: 'Inter', system_ui, sans-serif; }
         .heading-font { font-family: 'Space Grotesk', 'Inter', system_ui, sans-serif; font-weight: 600; letter-spacing: -0.025em; }
@@ -17,6 +17,14 @@
         .nav-link:hover { color: white; }
         .section-header { font-size: 1.85rem; line-height: 1.1; font-weight: 600; letter-spacing: -0.03em; }
         .tech-pill { font-size: 10px; padding: 1px 9px; background: rgba(255,255,255,0.06); border-radius: 9999px; white-space: nowrap; }
+
+        /* Light mode overrides */
+        html.light body { background-color: #f8fafc; color: #0f172a; }
+        html.light .glass { background: rgba(255,255,255,0.85); border-color: rgba(15,23,42,0.08); }
+        html.light .section-header { color: #0f172a; }
+        html.light .nav-link:hover { color: #0f172a; }
+        html.light .project-card { background: white; border-color: #e2e8f0; }
+        html.light footer { border-color: #e2e8f0; color: #64748b; }
     </style>
 </head>
 <body class="bg-zinc-950 text-zinc-200">
@@ -31,18 +39,27 @@
                     <a href="index.html" class="font-semibold text-2xl tracking-tighter hover:text-white">Metta Thomas</a>
                 </div>
                 
-                <div class="flex items-center gap-x-9 text-sm font-medium">
-                    <a href="index.html#research" class="nav-link">Research</a>
-                    <a href="projects.html" class="nav-link text-white">Projects</a>
-                    <a href="playground.html" class="nav-link">Playground</a>
-                    <a href="index.html#writings" class="nav-link">Writings</a>
-                    <a href="index.html#citations" class="nav-link">Citations</a>
-                    
-                    <a href="https://github.com/IAmM3ta/metta-thomas-private-archive" 
-                       class="flex items-center gap-x-2 px-5 h-10 text-sm border border-white/15 hover:bg-white/5 rounded-2xl transition-all">
-                        <i class="fa-solid fa-lock text-xs"></i>
-                        <span class="font-medium ml-1.5">Archive</span>
-                    </a>
+                <div class="flex items-center gap-x-6">
+                    <div class="flex items-center gap-x-9 text-sm font-medium">
+                        <a href="index.html#research" class="nav-link">Research</a>
+                        <a href="projects.html" class="nav-link text-white">Projects</a>
+                        <a href="playground.html" class="nav-link">Playground</a>
+                        <a href="index.html#writings" class="nav-link">Writings</a>
+                        <a href="index.html#citations" class="nav-link">Citations</a>
+                        
+                        <a href="https://github.com/IAmM3ta/metta-thomas-private-archive" 
+                           class="flex items-center gap-x-2 px-5 h-10 text-sm border border-white/15 hover:bg-white/5 rounded-2xl transition-all">
+                            <i class="fa-solid fa-lock text-xs"></i>
+                            <span class="font-medium ml-1.5">Archive</span>
+                        </a>
+                    </div>
+
+                    <!-- Dark Mode Toggle -->
+                    <button id="theme-toggle" 
+                            class="w-10 h-10 flex items-center justify-center text-xl hover:bg-white/5 rounded-2xl transition-all"
+                            aria-label="Toggle dark mode">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -51,9 +68,11 @@
     <!-- Header -->
     <div class="max-w-screen-2xl mx-auto px-8 pt-14 pb-10">
         <div class="max-w-2xl">
-            <div class="text-xs font-mono tracking-[2.5px] text-blue-400 mb-3">INTERACTIVE WORK & PLATFORM DEVELOPMENT</div>
+            <div class="text-xs font-mono tracking-[2.5px] text-blue-400 mb-3">INTERACTIVE WORK &amp; PLATFORM DEVELOPMENT</div>
             <h1 class="text-5xl font-semibold tracking-tighter heading-font">Projects</h1>
-            <p class="mt-4 text-lg text-zinc-400">Production interfaces and spatial computing work for the OPEV ecosystem.</p>
+            <p class="mt-4 text-lg text-zinc-400">
+                Production interfaces and spatial computing work for the OPEV ecosystem.
+            </p>
         </div>
     </div>
 
@@ -85,10 +104,10 @@
                     <div class="mt-6">
                         <div class="text-xs font-mono tracking-widest text-blue-400 mb-2">SKILLS DEMONSTRATED</div>
                         <div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-zinc-300">
-                            <div>• Advanced WebGL & shader development</div>
-                            <div>• Spatial computing & WebXR</div>
+                            <div>• Advanced WebGL &amp; shader development</div>
+                            <div>• Spatial computing &amp; WebXR</div>
                             <div>• Real-time data visualization</div>
-                            <div>• Haptic & multimodal interaction design</div>
+                            <div>• Haptic &amp; multimodal interaction design</div>
                             <div>• Production frontend architecture</div>
                         </div>
                     </div>
@@ -158,9 +177,9 @@
                         <div class="font-medium text-blue-400 mb-2">Platform Features</div>
                         <ul class="space-y-1.5 text-zinc-300">
                             <li class="flex gap-x-3"><span class="text-emerald-400">•</span> Dynamic 3D globe → topo map</li>
-                            <li class="flex gap-x-3"><span class="text-emerald-400">•</span> Ride recording & sharing</li>
+                            <li class="flex gap-x-3"><span class="text-emerald-400">•</span> Ride recording &amp; sharing</li>
                             <li class="flex gap-x-3"><span class="text-emerald-400">•</span> GroupRide coordination</li>
-                            <li class="flex gap-x-3"><span class="text-emerald-400">•</span> Permissions & social features</li>
+                            <li class="flex gap-x-3"><span class="text-emerald-400">•</span> Permissions &amp; social features</li>
                         </ul>
                     </div>
                     <div>
@@ -185,21 +204,53 @@
 
     <footer class="border-t border-white/10 py-8">
         <div class="max-w-screen-2xl mx-auto px-8 flex justify-between text-sm text-zinc-500">
-            <div>© 2025–2026 Robert F. Thomas</div>
+            <div>
+                © 2025–2026 Robert F. Thomas
+            </div>
             <a href="index.html" class="hover:text-zinc-300">Back to Research</a>
         </div>
     </footer>
 
     <script>
+        function initTheme() {
+            const toggleBtn = document.getElementById('theme-toggle');
+            const html = document.documentElement;
+
+            if (localStorage.getItem('theme') === 'light') {
+                html.classList.add('light');
+                toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+            } else {
+                html.classList.remove('light');
+                toggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+            }
+
+            toggleBtn.addEventListener('click', () => {
+                if (html.classList.contains('light')) {
+                    html.classList.remove('light');
+                    localStorage.setItem('theme', 'dark');
+                    toggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+                } else {
+                    html.classList.add('light');
+                    localStorage.setItem('theme', 'light');
+                    toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+                }
+            });
+        }
+
         function showFloatMapsModal() {
             document.getElementById('floatmaps-modal').classList.remove('hidden');
             document.getElementById('floatmaps-modal').classList.add('flex');
         }
+
         function hideModal() {
             const modal = document.getElementById('floatmaps-modal');
             modal.classList.remove('flex');
             modal.classList.add('hidden');
         }
+
+        window.onload = () => {
+            initTheme();
+        };
     </script>
 </body>
 </html>

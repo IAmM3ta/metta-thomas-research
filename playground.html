@@ -6,35 +6,22 @@
     <title>Playground • Metta Thomas</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Leaflet for FloatMaps demo -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
         
-        body {
-            font-family: 'Inter', system_ui, sans-serif;
-        }
-        
-        .heading-font {
-            font-family: 'Space Grotesk', 'Inter', system_ui, sans-serif;
-            font-weight: 600;
-            letter-spacing: -0.025em;
-        }
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .heading-font { font-family: 'Space Grotesk', 'Inter', system_ui, sans-serif; font-weight: 600; letter-spacing: -0.025em; }
+        .demo-card { transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); }
+        .demo-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
 
-        .demo-card {
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        
-        .demo-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-        }
+        #map { height: 420px; border-radius: 16px; }
 
-        #map {
-            height: 420px;
-            border-radius: 16px;
-        }
+        /* Light mode overrides */
+        html.light body { background-color: #f8fafc; color: #0f172a; }
+        html.light .glass { background: rgba(255,255,255,0.85); border-color: rgba(15,23,42,0.08); }
+        html.light footer { border-color: #e2e8f0; color: #64748b; }
     </style>
 </head>
 <body class="bg-zinc-950 text-zinc-200">
@@ -49,17 +36,26 @@
                     <a href="index.html" class="font-semibold text-2xl tracking-tighter hover:text-white">Metta Thomas</a>
                 </div>
                 
-                <div class="flex items-center gap-x-9 text-sm font-medium">
-                    <a href="index.html#research" class="nav-link">Research</a>
-                    <a href="projects.html" class="nav-link">Projects</a>
-                    <a href="playground.html" class="nav-link text-white">Playground</a>
-                    <a href="index.html#writings" class="nav-link">Writings</a>
-                    
-                    <a href="https://github.com/IAmM3ta/metta-thomas-private-archive" 
-                       class="flex items-center gap-x-2 px-5 h-10 text-sm border border-white/15 hover:bg-white/5 rounded-2xl transition-all">
-                        <i class="fa-solid fa-lock text-xs"></i>
-                        <span class="font-medium ml-1.5">Archive</span>
-                    </a>
+                <div class="flex items-center gap-x-6">
+                    <div class="flex items-center gap-x-9 text-sm font-medium">
+                        <a href="index.html#research" class="nav-link">Research</a>
+                        <a href="projects.html" class="nav-link">Projects</a>
+                        <a href="playground.html" class="nav-link text-white">Playground</a>
+                        <a href="index.html#writings" class="nav-link">Writings</a>
+                        
+                        <a href="https://github.com/IAmM3ta/metta-thomas-private-archive" 
+                           class="flex items-center gap-x-2 px-5 h-10 text-sm border border-white/15 hover:bg-white/5 rounded-2xl transition-all">
+                            <i class="fa-solid fa-lock text-xs"></i>
+                            <span class="font-medium ml-1.5">Archive</span>
+                        </a>
+                    </div>
+
+                    <!-- Dark Mode Toggle -->
+                    <button id="theme-toggle" 
+                            class="w-10 h-10 flex items-center justify-center text-xl hover:bg-white/5 rounded-2xl transition-all"
+                            aria-label="Toggle dark mode">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -104,7 +100,7 @@
                 </div>
             </div>
 
-            <!-- Placeholder for future demos -->
+            <!-- Placeholder -->
             <div class="demo-card group bg-zinc-900 border border-white/10 rounded-3xl overflow-hidden flex flex-col opacity-60">
                 <div class="h-48 bg-zinc-800 flex items-center justify-center">
                     <i class="fa-solid fa-magic text-5xl text-violet-400"></i>
@@ -152,6 +148,31 @@
     </footer>
 
     <script>
+        function initTheme() {
+            const toggleBtn = document.getElementById('theme-toggle');
+            const html = document.documentElement;
+
+            if (localStorage.getItem('theme') === 'light') {
+                html.classList.add('light');
+                toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+            } else {
+                html.classList.remove('light');
+                toggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+            }
+
+            toggleBtn.addEventListener('click', () => {
+                if (html.classList.contains('light')) {
+                    html.classList.remove('light');
+                    localStorage.setItem('theme', 'dark');
+                    toggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+                } else {
+                    html.classList.add('light');
+                    localStorage.setItem('theme', 'light');
+                    toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+                }
+            });
+        }
+
         let mapInstance = null;
 
         function showFloatMapsDemo() {
@@ -167,7 +188,6 @@
                         attribution: '&copy; OpenStreetMap contributors'
                     }).addTo(mapInstance);
 
-                    // Sample stations
                     const stations = [
                         { lat: 35.5951, lng: -82.5515, name: "West Asheville Hub", status: "4/6 available" },
                         { lat: 35.6123, lng: -82.5432, name: "Downtown Station", status: "2/4 available" },
@@ -180,7 +200,6 @@
                             .bindPopup(`<b>${station.name}</b><br>${station.status}`);
                     });
 
-                    // Sample riders
                     const riders = [
                         { lat: 35.6012, lng: -82.5601 },
                         { lat: 35.5890, lng: -82.5388 }
@@ -205,10 +224,13 @@
             modal.classList.add('hidden');
         }
 
-        // Close modal on outside click
         document.getElementById('floatmaps-modal').addEventListener('click', function(e) {
             if (e.target === this) hideFloatMapsDemo();
         });
+
+        window.onload = () => {
+            initTheme();
+        };
     </script>
 </body>
 </html>
