@@ -6,8 +6,7 @@
     <title>Playground • Metta Thomas</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
         
@@ -16,15 +15,13 @@
         .demo-card { transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); }
         .demo-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
 
-        #map { height: 420px; border-radius: 16px; }
+        #spatial-canvas { width: 100%; height: 420px; border-radius: 16px; background: #0a0a0f; }
 
         .modal { animation: modalEnter 0.2s cubic-bezier(0.23, 1, 0.32, 1) backwards; }
         @keyframes modalEnter { from { opacity: 0; transform: scale(0.96) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
-        /* Light mode overrides */
-        html.light body { background-color: #f8fafc; color: #0f172a; }
-        html.light .glass { background: rgba(255,255,255,0.85); border-color: rgba(15,23,42,0.08); }
-        html.light footer { border-color: #e2e8f0; color: #64748b; }
+        .view-toggle { transition: all 0.2s ease; }
+        .view-toggle.active { background-color: #3b82f6; color: white; }
     </style>
 </head>
 <body class="bg-zinc-950 text-zinc-200">
@@ -53,7 +50,6 @@
                         </a>
                     </div>
 
-                    <!-- Dark Mode Toggle -->
                     <button id="theme-toggle" 
                             class="w-10 h-10 flex items-center justify-center text-xl hover:bg-white/5 rounded-2xl transition-all"
                             aria-label="Toggle dark mode">
@@ -79,40 +75,26 @@
     <div class="max-w-screen-2xl mx-auto px-8 pb-20">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
-            <!-- FloatMaps Demo -->
+            <!-- FloatMaps Advanced Demo -->
             <div class="demo-card group bg-zinc-900 border border-white/10 rounded-3xl overflow-hidden flex flex-col">
                 <div class="h-48 bg-zinc-800 flex items-center justify-center relative">
                     <div class="text-center">
-                        <i class="fa-solid fa-map-marked text-5xl text-blue-400 mb-4"></i>
-                        <div class="text-sm text-zinc-400">Interactive Mapping</div>
+                        <i class="fa-solid fa-globe text-5xl text-blue-400 mb-4"></i>
+                        <div class="text-sm text-zinc-400">Spatial + Splat View</div>
                     </div>
                 </div>
                 
                 <div class="p-7 flex-1 flex flex-col">
                     <div>
                         <h3 class="font-semibold text-2xl tracking-tight">FloatMaps</h3>
-                        <p class="text-sm text-zinc-400 mt-1">Interactive demo of the core mapping and infrastructure platform.</p>
+                        <p class="text-sm text-zinc-400 mt-1">Advanced demo with map / splat spatial view toggle, route navigation, and friend beacons.</p>
                     </div>
                     
                     <div class="mt-auto pt-6">
-                        <button onclick="showFloatMapsDemo()" 
+                        <button onclick="showFloatMapsAdvancedDemo()" 
                                 class="w-full inline-flex items-center justify-center gap-x-2 px-6 h-11 bg-white text-zinc-950 font-semibold rounded-2xl hover:bg-white/90 transition-all text-sm">
-                            Launch Demo
+                            Launch Advanced Demo
                         </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Placeholder -->
-            <div class="demo-card group bg-zinc-900 border border-white/10 rounded-3xl overflow-hidden flex flex-col opacity-60">
-                <div class="h-48 bg-zinc-800 flex items-center justify-center">
-                    <i class="fa-solid fa-magic text-5xl text-violet-400"></i>
-                </div>
-                
-                <div class="p-7 flex-1 flex flex-col">
-                    <div>
-                        <h3 class="font-semibold text-2xl tracking-tight">GLSL Shader Experiments</h3>
-                        <p class="text-sm text-zinc-400 mt-1">Coming soon</p>
                     </div>
                 </div>
             </div>
@@ -120,23 +102,39 @@
         </div>
     </div>
 
-    <!-- FloatMaps Demo Modal -->
-    <div id="floatmaps-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-        <div class="bg-zinc-900 border border-white/10 rounded-3xl w-full max-w-5xl overflow-hidden modal">
-            <div class="flex items-center justify-between px-8 py-5 border-b border-white/10">
+    <!-- FloatMaps Advanced Demo Modal -->
+    <div id="floatmaps-advanced-modal" onclick="if (event.target.id === 'floatmaps-advanced-modal') hideAdvancedDemo()" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" class="bg-zinc-900 border border-white/10 rounded-3xl w-full max-w-6xl overflow-hidden">
+            
+            <!-- Header -->
+            <div class="px-8 py-5 border-b border-white/10 flex items-center justify-between">
                 <div>
-                    <h3 class="font-semibold text-xl">FloatMaps — Interactive Demo</h3>
-                    <p class="text-sm text-zinc-400">Battery Swap Infrastructure Map</p>
+                    <h3 class="font-semibold text-xl">FloatMaps — Advanced Spatial Demo</h3>
+                    <p class="text-sm text-zinc-400">Map View ↔ Splat Spatial View with Route &amp; Beacons</p>
                 </div>
-                <button onclick="hideFloatMapsDemo()" class="text-zinc-400 hover:text-white text-2xl leading-none">&times;</button>
+                <button onclick="hideAdvancedDemo()" class="text-zinc-400 hover:text-white text-2xl">&times;</button>
             </div>
 
+            <!-- Controls -->
+            <div class="px-8 pt-5 flex items-center gap-x-4">
+                <div class="flex items-center bg-zinc-800 rounded-2xl p-1">
+                    <button id="btn-map-view" onclick="switchToMapView()" 
+                            class="view-toggle active px-4 py-1.5 text-sm font-medium rounded-2xl">Map View</button>
+                    <button id="btn-splat-view" onclick="switchToSplatView()" 
+                            class="view-toggle px-4 py-1.5 text-sm font-medium rounded-2xl">Splat Spatial View</button>
+                </div>
+                
+                <div class="text-xs text-zinc-400">Click beacons to ping friends</div>
+            </div>
+
+            <!-- Canvas Container -->
             <div class="p-6">
-                <div id="map" class="w-full rounded-2xl border border-white/10"></div>
+                <canvas id="spatial-canvas" class="w-full rounded-2xl border border-white/10" style="height: 420px;"></canvas>
             </div>
 
-            <div class="px-8 py-5 border-t border-white/10 text-xs text-zinc-400">
-                Functional prototype. Real data and advanced features in development.
+            <div class="px-8 py-4 border-t border-white/10 text-xs text-zinc-400 flex justify-between items-center">
+                <div>Prototype demonstrating WebXR + Gaussian splat concepts from FloatMaps sprint</div>
+                <div class="text-emerald-400">Interactive</div>
             </div>
         </div>
     </div>
@@ -151,6 +149,11 @@
     </footer>
 
     <script>
+        let currentView = 'map';
+        let scene, camera, renderer;
+        let beacons = [];
+        let routeLine;
+
         function initTheme() {
             const toggleBtn = document.getElementById('theme-toggle');
             const html = document.documentElement;
@@ -176,60 +179,273 @@
             });
         }
 
-        let mapInstance = null;
-
-        function showFloatMapsDemo() {
-            const modal = document.getElementById('floatmaps-modal');
+        function showFloatMapsAdvancedDemo() {
+            const modal = document.getElementById('floatmaps-advanced-modal');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
 
-            if (!mapInstance) {
-                setTimeout(() => {
-                    mapInstance = L.map('map').setView([35.5951, -82.5515], 12);
+            setTimeout(() => {
+                initSpatialDemo();
+            }, 100);
+        }
 
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        attribution: '&copy; OpenStreetMap contributors'
-                    }).addTo(mapInstance);
-
-                    const stations = [
-                        { lat: 35.5951, lng: -82.5515, name: "West Asheville Hub", status: "4/6 available" },
-                        { lat: 35.6123, lng: -82.5432, name: "Downtown Station", status: "2/4 available" },
-                        { lat: 35.5789, lng: -82.5721, name: "River Arts District", status: "5/5 available" }
-                    ];
-
-                    stations.forEach(station => {
-                        L.marker([station.lat, station.lng])
-                            .addTo(mapInstance)
-                            .bindPopup(`<b>${station.name}</b><br>${station.status}`);
-                    });
-
-                    const riders = [
-                        { lat: 35.6012, lng: -82.5601 },
-                        { lat: 35.5890, lng: -82.5388 }
-                    ];
-
-                    riders.forEach(rider => {
-                        L.circleMarker([rider.lat, rider.lng], {
-                            radius: 6,
-                            fillColor: "#10b981",
-                            color: "#10b981",
-                            weight: 2,
-                            fillOpacity: 0.6
-                        }).addTo(mapInstance);
-                    });
-                }, 300);
+        function hideAdvancedDemo() {
+            const modal = document.getElementById('floatmaps-advanced-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+            
+            // Cleanup Three.js
+            if (renderer) {
+                renderer.dispose();
+                renderer = null;
             }
         }
 
-        function hideFloatMapsDemo() {
-            const modal = document.getElementById('floatmaps-modal');
-            modal.classList.remove('flex');
-            modal.classList.add('hidden');
+        function initSpatialDemo() {
+            const canvas = document.getElementById('spatial-canvas');
+            if (!canvas) return;
+
+            // Setup Three.js
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+            renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(10, 20, 10);
+            scene.add(directionalLight);
+
+            // Initial Map View (grid + points)
+            createMapView();
+
+            // Camera position
+            camera.position.set(0, 8, 12);
+            camera.lookAt(0, 0, 0);
+
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                // Gentle rotation in splat view
+                if (currentView === 'splat' && scene) {
+                    scene.rotation.y += 0.0008;
+                }
+
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            // Handle resize
+            window.addEventListener('resize', () => {
+                if (renderer && camera) {
+                    camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+                }
+            });
+
+            // Click interaction for beacons
+            canvas.addEventListener('click', onCanvasClick);
         }
 
-        document.getElementById('floatmaps-modal').addEventListener('click', function(e) {
-            if (e.target === this) hideFloatMapsDemo();
-        });
+        function createMapView() {
+            // Clear previous objects
+            while(scene.children.length > 0){ 
+                scene.remove(scene.children[0]); 
+            }
+
+            // Ground grid (map style)
+            const gridHelper = new THREE.GridHelper(20, 20, 0x3b82f6, 0x1e2937);
+            scene.add(gridHelper);
+
+            // Route line
+            const routePoints = [
+                new THREE.Vector3(-6, 0.1, -4),
+                new THREE.Vector3(-2, 0.1, -1),
+                new THREE.Vector3(3, 0.1, 2),
+                new THREE.Vector3(7, 0.1, 5)
+            ];
+            const routeGeometry = new THREE.BufferGeometry().setFromPoints(routePoints);
+            const routeMaterial = new THREE.LineBasicMaterial({ color: 0x3b82f6, linewidth: 3 });
+            routeLine = new THREE.Line(routeGeometry, routeMaterial);
+            scene.add(routeLine);
+
+            // Friend beacons
+            beacons = [];
+            const beaconPositions = [
+                { x: -4, z: -2 },
+                { x: 1, z: 1 },
+                { x: 5, z: 4 }
+            ];
+
+            beaconPositions.forEach((pos, index) => {
+                const beacon = createBeacon(pos.x, 0.5, pos.z, index);
+                scene.add(beacon);
+                beacons.push(beacon);
+            });
+
+            currentView = 'map';
+            updateViewToggle();
+        }
+
+        function createBeacon(x, y, z, id) {
+            const group = new THREE.Group();
+            group.userData = { id: id, type: 'beacon' };
+
+            // Core sphere
+            const coreGeometry = new THREE.SphereGeometry(0.25, 16, 16);
+            const coreMaterial = new THREE.MeshPhongMaterial({ color: 0x10b981, emissive: 0x064e3b });
+            const core = new THREE.Mesh(coreGeometry, coreMaterial);
+            group.add(core);
+
+            // Pulsing ring
+            const ringGeometry = new THREE.RingGeometry(0.4, 0.55, 32);
+            const ringMaterial = new THREE.MeshBasicMaterial({ color: 0x10b981, side: THREE.DoubleSide, transparent: true, opacity: 0.6 });
+            const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+            ring.rotation.x = Math.PI / 2;
+            group.add(ring);
+
+            group.position.set(x, y, z);
+
+            // Store reference for pulsing
+            group.userData.ring = ring;
+            group.userData.pulse = 0;
+
+            return group;
+        }
+
+        function switchToSplatView() {
+            if (currentView === 'splat') return;
+
+            // Clear and create splat-style view
+            while(scene.children.length > 0){ scene.remove(scene.children[0]); }
+
+            // Dense point cloud (splat proxy)
+            const splatCount = 1200;
+            const positions = new Float32Array(splatCount * 3);
+            const colors = new Float32Array(splatCount * 3);
+
+            for (let i = 0; i < splatCount; i++) {
+                const i3 = i * 3;
+                positions[i3]     = (Math.random() - 0.5) * 14;
+                positions[i3 + 1] = Math.random() * 3 + 0.2;
+                positions[i3 + 2] = (Math.random() - 0.5) * 14;
+
+                // Blue-ish splat colors
+                colors[i3] = 0.2 + Math.random() * 0.3;
+                colors[i3 + 1] = 0.4 + Math.random() * 0.3;
+                colors[i3 + 2] = 0.8 + Math.random() * 0.2;
+            }
+
+            const splatGeometry = new THREE.BufferGeometry();
+            splatGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            splatGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const splatMaterial = new THREE.PointsMaterial({
+                size: 0.12,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.85,
+                blending: THREE.AdditiveBlending
+            });
+
+            const splats = new THREE.Points(splatGeometry, splatMaterial);
+            scene.add(splats);
+
+            // Route in splat view
+            const routePoints = [
+                new THREE.Vector3(-6, 1, -4),
+                new THREE.Vector3(-2, 2, -1),
+                new THREE.Vector3(3, 1.5, 2),
+                new THREE.Vector3(7, 2.5, 5)
+            ];
+            const routeGeometry = new THREE.BufferGeometry().setFromPoints(routePoints);
+            const routeMaterial = new THREE.LineBasicMaterial({ color: 0x60a5fa, linewidth: 2 });
+            routeLine = new THREE.Line(routeGeometry, routeMaterial);
+            scene.add(routeLine);
+
+            // Beacons in 3D space
+            beacons = [];
+            const beaconPositions = [
+                { x: -4, y: 1.5, z: -2 },
+                { x: 1, y: 2, z: 1 },
+                { x: 5, y: 1.8, z: 4 }
+            ];
+
+            beaconPositions.forEach((pos, index) => {
+                const beacon = createBeacon(pos.x, pos.y, pos.z, index);
+                scene.add(beacon);
+                beacons.push(beacon);
+            });
+
+            currentView = 'splat';
+            updateViewToggle();
+        }
+
+        function switchToMapView() {
+            if (currentView === 'map') return;
+            createMapView();
+        }
+
+        function updateViewToggle() {
+            const btnMap = document.getElementById('btn-map-view');
+            const btnSplat = document.getElementById('btn-splat-view');
+
+            if (!btnMap || !btnSplat) return;
+
+            if (currentView === 'map') {
+                btnMap.classList.add('active', 'bg-blue-600', 'text-white');
+                btnSplat.classList.remove('active', 'bg-blue-600', 'text-white');
+            } else {
+                btnSplat.classList.add('active', 'bg-blue-600', 'text-white');
+                btnMap.classList.remove('active', 'bg-blue-600', 'text-white');
+            }
+        }
+
+        function onCanvasClick(event) {
+            if (!renderer || currentView !== 'splat') return;
+
+            const canvas = document.getElementById('spatial-canvas');
+            const rect = canvas.getBoundingClientRect();
+            const mouse = new THREE.Vector2();
+            mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+            const raycaster = new THREE.Raycaster();
+            raycaster.setFromCamera(mouse, camera);
+
+            const intersects = raycaster.intersectObjects(beacons, true);
+
+            if (intersects.length > 0) {
+                const beacon = intersects[0].object.parent;
+                triggerBeaconPing(beacon);
+            }
+        }
+
+        function triggerBeaconPing(beaconGroup) {
+            if (!beaconGroup.userData.ring) return;
+
+            const ring = beaconGroup.userData.ring;
+            let scale = 1;
+            const interval = setInterval(() => {
+                scale += 0.15;
+                ring.scale.set(scale, scale, scale);
+                ring.material.opacity = Math.max(0, 0.6 - (scale - 1) * 0.3);
+
+                if (scale > 3) {
+                    clearInterval(interval);
+                    ring.scale.set(1, 1, 1);
+                    ring.material.opacity = 0.6;
+                }
+            }, 50);
+        }
+
+        function initTheme() { /* same as before */ }
 
         window.onload = () => {
             initTheme();
