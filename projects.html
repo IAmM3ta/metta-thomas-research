@@ -18,6 +18,9 @@
         .section-header { font-size: 1.85rem; line-height: 1.1; font-weight: 600; letter-spacing: -0.03em; }
         .tech-pill { font-size: 10px; padding: 1px 9px; background: rgba(255,255,255,0.06); border-radius: 9999px; white-space: nowrap; }
 
+        .modal { animation: modalEnter 0.2s cubic-bezier(0.23, 1, 0.32, 1) backwards; }
+        @keyframes modalEnter { from { opacity: 0; transform: scale(0.96) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
         /* Light mode overrides */
         html.light body { background-color: #f8fafc; color: #0f172a; }
         html.light .glass { background: rgba(255,255,255,0.85); border-color: rgba(15,23,42,0.08); }
@@ -162,7 +165,7 @@
 
     <!-- FloatMaps Modal -->
     <div id="floatmaps-modal" onclick="if (event.target.id === 'floatmaps-modal') hideModal()" class="hidden fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4">
-        <div onclick="event.stopImmediatePropagation()" class="bg-zinc-900 border border-white/10 rounded-3xl max-w-2xl w-full overflow-hidden">
+        <div onclick="event.stopImmediatePropagation()" class="bg-zinc-900 border border-white/10 rounded-3xl max-w-2xl w-full overflow-hidden modal">
             <div class="px-8 py-6 border-b border-white/10 flex justify-between">
                 <div>
                     <h3 class="font-semibold">FloatMaps — June 2026 Sprint</h3>
@@ -238,8 +241,9 @@
         }
 
         function showFloatMapsModal() {
-            document.getElementById('floatmaps-modal').classList.remove('hidden');
-            document.getElementById('floatmaps-modal').classList.add('flex');
+            const modal = document.getElementById('floatmaps-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
         }
 
         function hideModal() {

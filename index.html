@@ -12,14 +12,21 @@
         
         body { font-family: 'Inter', system_ui, sans-serif; }
         .heading-font { font-family: 'Space Grotesk', 'Inter', system_ui, sans-serif; font-weight: 600; letter-spacing: -0.025em; }
-        .glass { background: rgba(10, 10, 15, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); }
+        .glass { background: rgba(10, 10, 15, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); }
         .section-header { font-size: 1.9rem; line-height: 1.1; font-weight: 600; letter-spacing: -0.03em; }
         .nav-link { transition: color 0.2s ease; }
         .nav-link:hover { color: white; }
-        .futuristic-card { transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); }
+        .futuristic-card, .research-card { transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s cubic-bezier(0.23, 1, 0.32, 1); }
         .research-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
         #three-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.5; pointer-events: none; }
         .hero-title { font-size: clamp(3.1rem, 7vw, 5rem); line-height: 0.92; font-weight: 600; letter-spacing: -0.045em; }
+
+        /* Modal animations */
+        .modal { animation: modalEnter 0.2s cubic-bezier(0.23, 1, 0.32, 1) backwards; }
+        @keyframes modalEnter { from { opacity: 0; transform: scale(0.96) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+        /* Theme toggle smooth icon change */
+        #theme-toggle i { transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1); }
 
         /* Light mode overrides */
         html.light body { background-color: #f8fafc; color: #0f172a; }
@@ -32,7 +39,7 @@
 </head>
 <body class="bg-zinc-950 text-zinc-200">
     <!-- Navbar -->
-    <nav class="border-b border-white/10 bg-zinc-950/95 backdrop-blur-xl sticky top-0 z-50 dark:bg-zinc-950/95">
+    <nav class="border-b border-white/10 bg-zinc-950/95 backdrop-blur-xl sticky top-0 z-50">
         <div class="max-w-screen-2xl mx-auto px-8">
             <div class="flex items-center justify-between h-20">
                 <div class="flex items-center gap-x-3">
@@ -250,12 +257,11 @@
     </footer>
 
     <script>
-        // Dark mode toggle
+        // Dark mode toggle with smooth icon transition
         function initTheme() {
             const toggleBtn = document.getElementById('theme-toggle');
             const html = document.documentElement;
 
-            // Load saved theme
             if (localStorage.getItem('theme') === 'light') {
                 html.classList.add('light');
                 toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
